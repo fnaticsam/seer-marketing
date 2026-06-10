@@ -209,7 +209,7 @@ nav.solid{background:rgba(12,9,20,.55);backdrop-filter:blur(20px) saturate(1.3);
 .d-meter .segs{flex:1;display:flex;gap:4px}
 .d-meter .seg{height:6px;flex:1;border-radius:2px;background:rgba(255,255,255,.07);transition:background .4s}
 .d-meter.swing .seg:nth-child(-n+5){background:linear-gradient(90deg,var(--pink),var(--orange))}
-.d-meter.swing .lab-eng{color:var(--orange-soft)}
+.d-meter.swing .lab-r{color:var(--orange-soft)}
 .d-meter-cap{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;color:var(--faint);margin-top:-8px}
 /* live HUD */
 .d-bar{display:flex;justify-content:space-between;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--muted)}
@@ -552,8 +552,8 @@ body.gated{overflow:hidden}
 
   <!-- RIBBON -->
   <div class="ribbon" aria-hidden="true"><div class="ribbon-track">
-    <span>You're 2–9 into Viego — ban him <i>•</i> Zhonya's second on Orianna, Karthus has R <i>•</i> Enemy jungler spotted on ward 30 seconds ago <i>•</i> 3-game win streak — don't get cocky <i>•</i> You're 1.8k up: this is your Baron window <i>•</i> That death was avoidable. So were the last four <i>•</i> Their comp outscales you — end by 25 <i>•</i> Your CS falls off a cliff at minute 14 <i>•</i></span>
-    <span>You're 2–9 into Viego — ban him <i>•</i> Zhonya's second on Orianna, Karthus has R <i>•</i> Enemy jungler spotted on ward 30 seconds ago <i>•</i> 3-game win streak — don't get cocky <i>•</i> You're 1.8k up: this is your Baron window <i>•</i> That death was avoidable. So were the last four <i>•</i> Their comp outscales you — end by 25 <i>•</i> Your CS falls off a cliff at minute 14 <i>•</i></span>
+    <span>You're 1W–4L into Viego — ban him <i>•</i> Zhonya's second on Orianna, Karthus has R <i>•</i> Enemy jungler spotted on ward 30 seconds ago <i>•</i> 3-game win streak — don't get cocky <i>•</i> You're 1.8k up: this is your Baron window <i>•</i> That death was avoidable. So were the last four <i>•</i> Their comp outscales you — end before 28 <i>•</i> Your CS falls off a cliff at minute 14 <i>•</i></span>
+    <span>You're 1W–4L into Viego — ban him <i>•</i> Zhonya's second on Orianna, Karthus has R <i>•</i> Enemy jungler spotted on ward 30 seconds ago <i>•</i> 3-game win streak — don't get cocky <i>•</i> You're 1.8k up: this is your Baron window <i>•</i> That death was avoidable. So were the last four <i>•</i> Their comp outscales you — end before 28 <i>•</i> Your CS falls off a cliff at minute 14 <i>•</i></span>
   </div></div>
 
   <!-- SEER IN ACTION -->
@@ -563,7 +563,7 @@ body.gated{overflow:hidden}
       <h2 class="title" style="text-align:center;max-width:none">One game. Three phases. <span class="gt">Zero cope.</span></h2>
       <p class="lead">A stylized ranked game with the overlay on — draft to victory screen. This is Seer talking.</p>
     </div>
-    <p class="sr-only">In this demo: during draft, Seer bans Viego based on your matchup history and locks Orianna into Karthus. During the live game it calls the enemy jungler's position from a ward, a Zhonya's buy to counter Karthus, a drake window, and an unwarded river. Post-game it grades early, mid and late phases, flags one avoidable death, and sets one focus for the next game.</p>
+    <p class="sr-only">In this demo: during draft, Seer bans Viego off your 1-win-4-loss record against him, warns that Jinx hyperscales, and recommends locking your 62% Camille into Sett while flagging that Karthus jungle outscales your comp. During the live game it spots the enemy jungler on a bot-side ward, tracks your 1.2k gold lead, calls a Zhonya's rush for Orianna and a Hexdrinker for you, then warns you off splitting while Nautilus and Karthus are unseen. Post-game it grades early, mid and late phases of your 8/2/12 win, shows both deaths were Hookshot overcommits, and sets flash-Hookshot practice plus control wards as the next focus.</p>
     <div class="demo-shell rv" id="demoShell" aria-label="Seer product demo">
       <div class="demo-tabs" role="tablist" aria-label="Game phases">
         <button class="demo-tab" role="tab" id="tab-draft" aria-controls="panel-draft" aria-selected="true"><span class="n">01</span><span class="lbl">Draft</span></button>
@@ -574,38 +574,38 @@ body.gated{overflow:hidden}
 
         <div class="demo-panel" id="panel-draft" role="tabpanel" aria-labelledby="tab-draft">
           <div class="dg">
-            <div class="d-head"><span>RANKED DRAFT</span><span class="d-timer" id="dTimer">0:28</span><span id="dState">PICK 4/10</span></div>
+            <div class="d-head"><span>RANKED DRAFT</span><span class="d-timer" id="dTimer">0:27</span><span id="dState">PICK 6/10</span></div>
             <div class="d-bans" id="dBans">
-              <span class="d-ban x">ZED</span><span class="d-ban x">YAS</span><span class="d-ban x">AKL</span><span class="d-ban" id="dBanV">—</span><span class="d-ban">—</span>
-              <span class="d-ban x">LB</span><span class="d-ban x">KSA</span><span class="d-ban x">DRV</span><span class="d-ban">—</span><span class="d-ban">—</span>
+              <span class="d-ban x">YAS</span><span class="d-ban x">EVE</span><span class="d-ban" id="dBanV">—</span><span class="d-ban x">SYN</span><span class="d-ban x">KAT</span>
+              <span class="d-ban x">DRV</span><span class="d-ban x">MAL</span><span class="d-ban x">HEC</span><span class="d-ban x">GAR</span><span class="d-ban x">KAI</span>
             </div>
             <div class="d-cols">
               <div class="d-col blue">
                 <span class="d-side">YOUR TEAM</span>
-                <div class="d-tile d-full" title="Garen"><span class="mono">GAR</span><span class="nm">Garen</span></div>
-                <div class="d-tile d-full" title="Vi"><span class="mono">VI</span><span class="nm">Vi</span></div>
-                <div class="d-tile empty" id="dYou" title="Your pick"><span class="mono">?</span><span class="nm">YOU</span></div>
-                <div class="d-tile d-full" title="Jinx"><span class="mono">JNX</span><span class="nm">Jinx</span></div>
-                <div class="d-tile empty d-full" id="dJna" title="Support pick"><span class="mono">?</span><span class="nm">Picking…</span></div>
+                <div class="d-tile empty" id="dYou" title="Your pick — top"><span class="mono">?</span><span class="nm">YOU</span></div>
+                <div class="d-tile d-full" title="Lee Sin — jungle"><span class="mono">LEE</span><span class="nm">Lee Sin</span></div>
+                <div class="d-tile d-full" title="Orianna — mid"><span class="mono">ORI</span><span class="nm">Orianna</span></div>
+                <div class="d-tile d-full" title="Miss Fortune — ADC"><span class="mono">MF</span><span class="nm">Miss Fortune</span></div>
+                <div class="d-tile d-full" title="Thresh — support"><span class="mono">THR</span><span class="nm">Thresh</span></div>
               </div>
               <div class="d-col red">
                 <span class="d-side">ENEMY TEAM</span>
-                <div class="d-tile d-full" title="Malphite"><span class="mono">MAL</span><span class="nm">Malphite</span></div>
-                <div class="d-tile d-full" title="Jarvan IV"><span class="mono">JRV</span><span class="nm">Jarvan IV</span></div>
-                <div class="d-tile empty" id="dKar" title="Enemy mid"><span class="mono">?</span><span class="nm">Picking…</span></div>
-                <div class="d-tile d-full" title="Miss Fortune"><span class="mono">MF</span><span class="nm">Miss Fortune</span></div>
-                <div class="d-tile d-full" title="Nautilus"><span class="mono">NAU</span><span class="nm">Nautilus</span></div>
+                <div class="d-tile d-full" title="Sett — top"><span class="mono">SET</span><span class="nm">Sett</span></div>
+                <div class="d-tile empty" id="dKar" title="Enemy jungle"><span class="mono">?</span><span class="nm">Picking…</span></div>
+                <div class="d-tile d-full" title="Ahri — mid"><span class="mono">AHR</span><span class="nm">Ahri</span></div>
+                <div class="d-tile empty d-full" id="dJnx" title="Enemy ADC"><span class="mono">?</span><span class="nm">Picking…</span></div>
+                <div class="d-tile d-full" title="Nautilus — support"><span class="mono">NAU</span><span class="nm">Nautilus</span></div>
               </div>
             </div>
-            <div class="d-meter" id="dMeter"><span class="lab-eng">ENGAGE</span><span class="segs"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></span><span>DISENGAGE</span></div>
-            <div class="d-meter-cap">THEIR COMP</div>
+            <div class="d-meter" id="dMeter"><span>EARLY</span><span class="segs"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></span><span class="lab-r">LATE</span></div>
+            <div class="d-meter-cap">THEIR POWER CURVE</div>
           </div>
           <div class="dc" aria-live="off"></div>
         </div>
 
         <div class="demo-panel" id="panel-live" role="tabpanel" aria-labelledby="tab-live" hidden>
           <div class="dg">
-            <div class="d-bar"><span id="dClock">13:50</span><span>ORIANNA 4/1/6</span><span class="d-gold" id="dGold">+0.9K</span></div>
+            <div class="d-bar"><span id="dClock">9:40</span><span>CAMILLE 2/0/1</span><span class="d-gold" id="dGold">+0.6K</span></div>
             <svg class="d-map" id="dMap" viewBox="0 0 100 100" aria-hidden="true">
               <rect x="1.5" y="1.5" width="97" height="97" rx="9" fill="#0d0a16" stroke="rgba(255,255,255,.09)"/>
               <polygon points="0,58 0,80 80,0 58,0" fill="rgba(130,170,210,.10)"/>
@@ -619,14 +619,14 @@ body.gated{overflow:hidden}
               <circle cx="62" cy="56" r="1.6" fill="rgba(255,255,255,.18)"/>
               <circle cx="72" cy="42" r="1.6" fill="rgba(255,255,255,.18)"/>
               <circle class="d-drake" cx="63" cy="72" r="3" fill="rgba(255,106,26,.75)"/>
-              <rect x="30" y="24" width="5" height="5" transform="rotate(45 32.5 26.5)" fill="#ffd9ec"/>
-              <circle class="d-ping" cx="32.5" cy="26.5" r="6" fill="none" stroke="#ff5ea8" stroke-width="1.5"/>
+              <rect x="54" y="60" width="5" height="5" transform="rotate(45 56.5 62.5)" fill="#ffd9ec"/>
+              <circle class="d-ping" cx="56.5" cy="62.5" r="6" fill="none" stroke="#ff5ea8" stroke-width="1.5"/>
               <polygon class="d-fog" points="50,100 100,50 100,100" fill="rgba(16,12,26,.95)"/>
-              <circle class="d-you" cx="50" cy="52" r="3" fill="url(#irisGrad)" stroke="#fff" stroke-width=".6"/>
+              <circle class="d-you" cx="18" cy="28" r="3" fill="url(#irisGrad)" stroke="#fff" stroke-width=".6"/>
             </svg>
             <div class="d-chips">
-              <span class="d-chip">DORAN'S RING</span><span class="d-chip">LOST CHAPTER</span><span class="d-chip">LUDEN'S</span>
-              <span class="d-chip next" id="dZh">ZHONYA'S — NEXT BUY</span>
+              <span class="d-chip">DORAN'S BLADE</span><span class="d-chip">SHEEN</span><span class="d-chip">TRINITY FORCE</span>
+              <span class="d-chip next" id="dZh">HEXDRINKER — NEXT BUY</span>
             </div>
           </div>
           <div class="dc" aria-live="off"></div>
@@ -636,15 +636,15 @@ body.gated{overflow:hidden}
           <div class="dg">
             <div class="d-result">
               <span class="d-vic gt" id="dVic">VICTORY</span>
-              <span class="d-sub">ORIANNA · 9/3/11 · 28:41</span>
+              <span class="d-sub">CAMILLE · 8/2/12 · 28:14 · 198 CS</span>
               <div class="d-grades" id="dGrades">
-                <span class="d-grade g1">EARLY A−<i></i></span>
+                <span class="d-grade g1">EARLY S<i></i></span>
                 <span class="d-grade g2">MID B+<i></i></span>
-                <span class="d-grade g3">LATE S<i></i></span>
+                <span class="d-grade g3">LATE A<i></i></span>
               </div>
               <div class="d-flags" id="dFlags">
-                <span class="d-flag f-warn">1 AVOIDABLE DEATH</span>
-                <span class="d-flag f-ok">KARTHUS R DEATHS AFTER 15:00 — 0</span>
+                <span class="d-flag f-warn">2 DEATHS — BOTH OVERCOMMITS</span>
+                <span class="d-flag f-ok">FIRST TOWER 13:20 · +18 CS AT 10</span>
               </div>
             </div>
           </div>
@@ -693,7 +693,7 @@ body.gated{overflow:hidden}
       <p class="lead">Seer reads your live game, knows your history, and turns a thousand data points into one clear call: do this, not that. No fluff, no 47-tab spreadsheet.</p>
     </div>
     <div class="grid4">
-      <div class="card a-pink rv"><div class="ic ic-ring"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0a0f" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9" opacity=".25"/><circle class="sweep" cx="12" cy="12" r="9" transform="rotate(-90 12 12)"/><path d="M12 7v5l3 2"/></svg></div><h3>Wins champ select first</h3><p>Live calls through every ban and pick while the timer ticks. It knows you're 2–9 into Viego, so it tells you to ban him before you find out a tenth time.</p><button class="d-jump" type="button" data-jump="draft">▶ see it in the demo</button></div>
+      <div class="card a-pink rv"><div class="ic ic-ring"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0a0f" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9" opacity=".25"/><circle class="sweep" cx="12" cy="12" r="9" transform="rotate(-90 12 12)"/><path d="M12 7v5l3 2"/></svg></div><h3>Wins champ select first</h3><p>Live calls through every ban and pick while the timer ticks. It knows you're 1W–4L into Viego, so it tells you to ban him before you find out a sixth time.</p><button class="d-jump" type="button" data-jump="draft">▶ see it in the demo</button></div>
       <div class="card a-purple rv"><div class="ic ic-radar"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0a0f" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="2.4" fill="#0a0a0f" stroke="none"/><circle class="pulse" cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="9" opacity=".3"/></svg></div><h3>Calls it mid-game</h3><p>"Enemy jungler spotted on ward 30 seconds ago." Vision warnings, win-condition checks, build corrections — in your overlay while the game is still winnable.</p><button class="d-jump" type="button" data-jump="live">▶ see it in the demo</button></div>
       <div class="card a-orange rv"><div class="ic ic-list"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0a0f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="tick" d="M4 6.5l2 2 3.5-4"/><path class="tick" d="M4 13.5l2 2 3.5-4"/><path class="tick" d="M4 20.5l2 2 3.5-4"/><path d="M13 6h7M13 13h7M13 20h7" opacity=".4"/></svg></div><h3>Runs the autopsy</h3><p>Early, mid, late: what went well, what to fix, and which of your deaths were 100% avoidable. One focus for next game. No 40-minute VOD homework.</p><button class="d-jump" type="button" data-jump="post">▶ see it in the demo</button></div>
       <div class="card a-pink rv"><div class="ic ic-eye"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0a0f" stroke-width="2" stroke-linecap="round"><path class="lid" d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.6" fill="#0a0a0f" stroke="none"/></svg></div><h3>Knows your sins</h3><p>Riot login, full history. Your win rates, your matchup hell, your LP graph, your builds vs what actually wins. It remembers, so you can't cope.</p></div>
@@ -944,44 +944,43 @@ else{
   let run=0,paused=false,cur=0,timers=[];
 
   const SCRIPTS=[
-    {total:19000,ev:[
-      {t:300,text:"Welcome back! You're on a 3-game win streak. Draft like you want a fourth."},
-      {t:2800,fx:'banVgo',text:"Ban Viego. You've struggled into him especially — his resets punish your carry-heavy pool."},
-      {t:6200,fx:'karLock',text:"Karthus mid. You bully him for twenty minutes, then he presses R from base. The plan: end before he's online."},
-      {t:9800,fx:'oriLock',text:"Lock Orianna. You're 58% on her this split, and her range makes his lane miserable."},
-      {t:13200,fx:'meter',text:"Their comp is full wombo — Malphite, Jarvan, Miss Fortune. Your support needs disengage. Ping Janna."},
-      {t:15300,fx:'jnaLock'},
-      {t:17000,fx:'locked'}
+    {total:22500,ev:[
+      {t:300,text:"Welcome back! You're on a 3-game win streak — 68% over your last ten. Your Camille's been carrying. Draft like you want a fourth."},
+      {t:3600,fx:'banVgo',text:"Ban Viego. He's 1W–4L into you recently — his resets punish your carry-heavy pool."},
+      {t:7200,fx:'jnxLock',badge:{cls:'warn',txt:'△ WARNING'},text:"They've locked Jinx — she hyperscales. Three items and this game slips away. Force fights before 25 minutes."},
+      {t:11000,badge:{cls:'next',txt:'→ YOUR PICK'},text:"Your turn. Camille is the call — she split-pushes Sett, Hookshot chains with Thresh's Flay, and you're 62% on her in 47 games."},
+      {t:14800,fx:'camLock',text:"Locked. With Thresh's Flay follow-up, your chain CC is hard for Jinx to escape."},
+      {t:17800,fx:'karLock',badge:{cls:'warn',txt:'△ WARNING'},text:"Karthus jungle completes it — they outscale you hard. Close before 28, and buy an early Hexdrinker."},
+      {t:21000,fx:'locked'}
     ]},
-    {total:17500,ev:[
+    {total:18500,ev:[
       {t:300,fx:'mapIn'},
-      {t:800,fx:'ping',text:"Enemy jungler spotted on ward 30 seconds ago — top side. Mid is yours. Shove and move."},
-      {t:4600,fx:'zhonya',text:"Build Zhonya's second on Orianna to counter Karthus R. You're 250g short — base after this wave."},
-      {t:8800,fx:'gold',text:"Team gold +1.4k and Karthus just burned R bot. Drake now is a coin flip you've already rigged."},
-      {t:12800,fx:'fog',text:"Zero wards bot river for 90 seconds. Do not face-check — let Vi walk first, you go in last."}
+      {t:800,fx:'ping',badge:{cls:'warn',txt:'△ WARNING'},text:"Enemy jungler spotted on a bot-side ward 30 seconds ago — he's pathing toward dragon. Ping Lee Sin to contest, or trade it for Herald."},
+      {t:5800,fx:'gold',text:"You're up 1.2k at ten minutes. Your win condition is mid-game fights before Karthus and Jinx come online — group the second first tower falls."},
+      {t:10200,fx:'zhonya',text:"Orianna should rush Zhonya's second to blank Karthus R. You want Hexdrinker before second dragon."},
+      {t:14200,fx:'fog',badge:{cls:'warn',txt:'△ WARNING'},text:"Nautilus and Karthus are both off the map. You're splitting with no escape up — back off until one shows."}
     ]},
     {total:20500,ev:[
       {t:300,fx:'stamp'},
       {t:900,fx:'grades'},
       {t:1800,fx:'flags'},
-      {t:2800,badge:{cls:'ok',txt:'✓ WENT WELL'},text:"Zhonya's at 14:52 did its job — Karthus R killed you exactly zero times after that. That's the dance."},
-      {t:6600,badge:{cls:'warn',txt:'△ TO IMPROVE'},text:"Your one avoidable death: face-checking river at 21:10 with no ward up. Same death as your last five losses."},
-      {t:10400,badge:{cls:'next',txt:'→ NEXT FOCUS'},text:"One control ward every recall. That's the whole homework. Boring? Yes. So is climbing."},
+      {t:2800,badge:{cls:'ok',txt:'✓ WENT WELL'},text:"Dominant lane. +18 CS at ten, solo kill at six, first tower at 13:20 with zero deaths. Textbook Camille."},
+      {t:6600,badge:{cls:'warn',txt:'△ TO IMPROVE'},text:"Both deaths were the same death: Hookshot before Thresh's Flay. Wait for the Flay, then engage — the chain CC is guaranteed."},
+      {t:10400,badge:{cls:'next',txt:'→ NEXT FOCUS'},text:"Flash-Hookshot in the practice tool — it hit 100% when you used it tonight. And a control ward every back."},
       {t:13800,cta:true,text:"That was one game. Seer remembers all of them."}
     ]}
   ];
 
   const FX={
     banVgo(){const b=$('#dBanV');b.textContent='VGO';b.classList.add('x');},
-    karLock(){const t=$('#dKar');t.querySelector('.mono').textContent='KAR';t.querySelector('.nm').textContent='Karthus';t.classList.remove('empty');t.classList.add('pop','flash-red');},
-    oriLock(){const t=$('#dYou');t.querySelector('.mono').textContent='ORI';t.querySelector('.nm').textContent='Orianna · YOU';t.classList.remove('empty');t.classList.add('you','pop');$('#dState').textContent='PICK 6/10';},
-    meter(){$('#dMeter').classList.add('swing');},
-    jnaLock(){const t=$('#dJna');t.querySelector('.mono').textContent='JNA';t.querySelector('.nm').textContent='Janna';t.classList.remove('empty');t.classList.add('pop');},
+    jnxLock(){const t=$('#dJnx');t.querySelector('.mono').textContent='JNX';t.querySelector('.nm').textContent='Jinx';t.classList.remove('empty');t.classList.add('pop','flash-red');$('#dState').textContent='PICK 7/10';},
+    camLock(){const t=$('#dYou');t.querySelector('.mono').textContent='CAM';t.querySelector('.nm').textContent='Camille · YOU';t.classList.remove('empty');t.classList.add('you','pop');$('#dState').textContent='PICK 9/10';},
+    karLock(){const t=$('#dKar');t.querySelector('.mono').textContent='KAR';t.querySelector('.nm').textContent='Karthus';t.classList.remove('empty');t.classList.add('pop','flash-red');$('#dMeter').classList.add('swing');$('#dState').textContent='PICK 10/10';},
     locked(){const s=$('#dState');s.textContent='LOCKED IN';s.classList.add('gt','lock');},
     mapIn(){$('#dMap').classList.add('in');},
-    ping(){$('#dMap').classList.add('pinged');},
+    ping(){$('#dMap').classList.add('pinged','drake');},
     zhonya(){$('#dZh').classList.add('in');},
-    gold(){const g=$('#dGold');g.textContent='+1.4K';g.classList.add('glow');$('#dMap').classList.add('drake');},
+    gold(){const g=$('#dGold');g.textContent='+1.2K';g.classList.add('glow');},
     fog(){$('#dMap').classList.add('fogged');},
     stamp(){$('#dVic').classList.add('stamp');},
     grades(){$('#dGrades').classList.add('fill');},
@@ -1012,16 +1011,16 @@ else{
     if(i===0){
       const bv=$('#dBanV');bv.textContent='—';bv.classList.remove('x');
       const k=$('#dKar');k.classList.add('empty');k.classList.remove('pop','flash-red');k.querySelector('.mono').textContent='?';k.querySelector('.nm').textContent='Picking…';
-      const j=$('#dJna');j.classList.add('empty');j.classList.remove('pop');j.querySelector('.mono').textContent='?';j.querySelector('.nm').textContent='Picking…';
+      const j=$('#dJnx');j.classList.add('empty');j.classList.remove('pop','flash-red');j.querySelector('.mono').textContent='?';j.querySelector('.nm').textContent='Picking…';
       const y=$('#dYou');y.classList.add('empty');y.classList.remove('you','pop');y.querySelector('.mono').textContent='?';y.querySelector('.nm').textContent='YOU';
       $('#dMeter').classList.remove('swing');
-      const s=$('#dState');s.textContent='PICK 4/10';s.classList.remove('gt','lock');
-      $('#dTimer').textContent='0:28';
+      const s=$('#dState');s.textContent='PICK 6/10';s.classList.remove('gt','lock');
+      $('#dTimer').textContent='0:27';
     }else if(i===1){
       $('#dMap').classList.remove('in','pinged','fogged','drake');
       $('#dZh').classList.remove('in');
-      const g=$('#dGold');g.textContent='+0.9K';g.classList.remove('glow');
-      $('#dClock').textContent='13:50';
+      const g=$('#dGold');g.textContent='+0.6K';g.classList.remove('glow');
+      $('#dClock').textContent='9:40';
     }else{
       $('#dVic').classList.remove('stamp');
       $('#dGrades').classList.remove('fill');
@@ -1031,8 +1030,8 @@ else{
   }
   function startTick(i,me){
     clearTimers();
-    if(i===0){let s=28;timers.push(setInterval(()=>{if(paused||me!==run)return;s=Math.max(1,s-1);$('#dTimer').textContent='0:'+String(s).padStart(2,'0');},1000));}
-    if(i===1){let s=830;timers.push(setInterval(()=>{if(paused||me!==run)return;s++;$('#dClock').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');},1000));}
+    if(i===0){let s=27;timers.push(setInterval(()=>{if(paused||me!==run)return;s=Math.max(1,s-1);$('#dTimer').textContent='0:'+String(s).padStart(2,'0');},1000));}
+    if(i===1){let s=580;timers.push(setInterval(()=>{if(paused||me!==run)return;s++;$('#dClock').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');},1000));}
   }
   function setTabs(idx){
     cur=idx;
