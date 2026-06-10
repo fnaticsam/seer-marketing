@@ -415,6 +415,22 @@ footer{border-top:1px solid var(--line);padding:40px 0}
 footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
 footer .dom{color:var(--pink-soft)}
 
+/* ── gate ── */
+.gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:var(--bg);transition:opacity .5s ease}
+.gate::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 38%,rgba(168,92,255,.14),transparent 65%),radial-gradient(ellipse 60% 45% at 50% 100%,rgba(255,106,26,.08),transparent 60%)}
+.gate.off{opacity:0;pointer-events:none}
+.gate-box{position:relative;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;padding:24px}
+.gate-box.shake{animation:gateShake .4s ease-in-out}
+@keyframes gateShake{25%{transform:translateX(-7px)}50%{transform:translateX(6px)}75%{transform:translateX(-3px)}}
+.gate-eye{width:64px;height:64px}
+.gate-tag{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--faint)}
+.gate-form{display:flex;gap:8px;background:var(--card);border:1px solid var(--glass-brd);border-radius:14px;padding:7px;backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.16);transition:border-color .25s,box-shadow .25s}
+.gate-form:focus-within{border-color:var(--pink);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 0 0 4px rgba(255,94,168,.14),0 0 40px rgba(168,92,255,.22)}
+.gate-form input{background:transparent;border:0;outline:0;color:var(--ink);font-size:15px;padding:12px 14px;font-family:'Inter',sans-serif;width:min(220px,50vw)}
+.gate-form input::placeholder{color:var(--faint)}
+.gate-note{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.04em;color:var(--orange-soft);min-height:18px}
+body.gated{overflow:hidden}
+
 /* reveal */
 .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
 .rv.in{opacity:1;transform:none}
@@ -423,6 +439,22 @@ footer .dom{color:var(--pink-soft)}
 </style>
 </head>
 <body>
+<div class="gate" id="gate">
+  <div class="gate-box">
+    <svg class="gate-eye" viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="17.5" fill="none" stroke="rgba(168,92,255,.55)" stroke-width="1.5"/>
+      <circle cx="20" cy="20" r="11" fill="#1c1228" stroke="rgba(255,140,200,.5)" stroke-width="1"/>
+      <circle cx="20" cy="20" r="4.6" fill="#070707"/>
+      <circle cx="18" cy="18" r="1.4" fill="rgba(255,225,240,.7)"/>
+    </svg>
+    <p class="gate-tag">The eye is shut</p>
+    <form class="gate-form" novalidate>
+      <input type="password" name="gate" placeholder="speak the word" autocomplete="off" aria-label="Password" />
+      <button type="submit" class="btn btn-primary">Enter</button>
+    </form>
+    <p class="gate-note" role="status" aria-live="polite"></p>
+  </div>
+</div>
 <div class="amb"><div class="mesh"></div><div class="orb purple"></div><div class="orb pink"></div><div class="orb orange"></div></div>
 <div class="grid"></div>
 <div class="noise"></div>
@@ -814,6 +846,30 @@ footer .dom{color:var(--pink-soft)}
 const SUPABASE_URL = "https://ldhrhefczaosqsfcfxbo.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_7QFZwpJxR4HjRFl3EFqOcw_CF1PN2yW";
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* password gate */
+(function(){
+  const gate=document.getElementById('gate');
+  const KEY='seer-gate', HASH='076a89c23179cedfc61171fe400ecf01fb76b9a48a68fb82dd0cd688d684d900';
+  if(localStorage.getItem(KEY)==='ok'){gate.remove();return;}
+  document.body.classList.add('gated');scrollTo(0,0);
+  const box=gate.querySelector('.gate-box'),form=gate.querySelector('form'),input=gate.querySelector('input'),note=gate.querySelector('.gate-note');
+  async function sha(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');}
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    if(await sha(input.value.trim().toLowerCase())===HASH){
+      localStorage.setItem(KEY,'ok');
+      document.body.classList.remove('gated');
+      gate.classList.add('off');
+      setTimeout(()=>gate.remove(),600);
+    }else{
+      note.textContent='The Seer does not know you.';
+      box.classList.add('shake');setTimeout(()=>box.classList.remove('shake'),450);
+      input.select();
+    }
+  });
+  input.focus();
+})();
 
 /* nav solidify */
 const nav=document.getElementById('nav');
