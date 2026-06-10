@@ -1,1 +1,5 @@
 .vercel
+.DS_Store
+.playwright-mcp/
+review/
+node_modules/
