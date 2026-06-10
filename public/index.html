@@ -166,7 +166,20 @@ nav.solid{background:rgba(12,9,20,.55);backdrop-filter:blur(20px) saturate(1.3);
 .demo-tab .short{display:none}
 .demo-stage{min-height:430px}
 .demo-panel{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);min-height:430px}
+.demo-panel.profile{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.demo-panel.three{grid-template-columns:minmax(0,3fr) minmax(0,6.5fr) minmax(0,3fr)}
 .demo-panel[hidden]{display:none}
+/* draft side rails + centre feed */
+.dg-side{padding:18px 14px;display:flex;flex-direction:column;gap:8px;justify-content:center;border-right:1px solid var(--line-soft);min-width:0}
+.dg-side.red{border-right:0;border-left:1px solid var(--line-soft)}
+.dg-side .d-side.mt{margin-top:8px}
+.dg-side.blue .d-side{color:var(--purple-soft)}
+.dg-side.red .d-side{color:var(--orange-soft)}
+.dg-side.red .d-tile{border-color:rgba(255,106,26,.25)}
+.dg-side.red .d-tile .mono{background:rgba(255,106,26,.16)}
+.d-mid{display:flex;flex-direction:column;min-width:0}
+.d-mid .d-head{padding:16px 20px;border-bottom:1px solid var(--line-soft)}
+.d-mid .dc{flex:1;max-height:382px}
 .dg{padding:24px;border-right:1px solid var(--line-soft);display:flex;flex-direction:column;gap:14px;justify-content:center}
 .dc{padding:22px;display:flex;flex-direction:column;justify-content:flex-end;gap:10px;overflow:hidden;max-height:430px}
 .d-bub{opacity:0;transform:translateY(10px);transition:opacity .2s,transform .2s;background:rgba(255,255,255,.04);border:1px solid var(--line-soft);border-radius:12px;padding:10px 13px;flex:0 0 auto}
@@ -280,6 +293,13 @@ nav.solid{background:rgba(12,9,20,.55);backdrop-filter:blur(20px) saturate(1.3);
   .dg{border-right:0;border-bottom:1px solid var(--line-soft);padding:16px;gap:10px}
   .d-full{display:none}
   .dc{min-height:250px;max-height:300px}
+  .demo-panel.three{grid-template-columns:1fr 1fr}
+  .dg-side{border-right:0;border-left:0;border-bottom:1px solid var(--line-soft);padding:12px;justify-content:flex-start}
+  .dg-side.blue{order:1}
+  .dg-side.red{order:2}
+  .d-mid{grid-column:1/-1;order:3}
+  .d-mid .d-head{padding:12px 16px}
+  .d-mid .dc{max-height:300px}
   .demo-tab .full{display:none}
   .demo-tab .short{display:inline}
   .demo-tab .n{display:none}
@@ -591,16 +611,23 @@ body.gated{overflow:hidden}
       </div>
       <div class="demo-stage" aria-hidden="true">
 
-        <div class="demo-panel" id="panel-profile" role="tabpanel" aria-labelledby="tab-profile">
+        <div class="demo-panel profile" id="panel-profile" role="tabpanel" aria-labelledby="tab-profile">
           <div class="dg">
             <div class="d-head"><span>HARDSTUCK#EUW</span><span class="d-timer">GOLD II · 67 LP</span></div>
             <div class="d-lp" id="dLp"><i></i></div>
             <div class="d-col" id="dChamps">
               <span class="d-side">YOUR CHAMPIONS</span>
-              <div class="d-tile" title="Camille — your main"><span class="mono">CAM</span><span class="nm">Camille</span><span class="st">62% · 47G</span></div>
-              <div class="d-tile d-full" title="Fiora"><span class="mono">FIO</span><span class="nm">Fiora</span><span class="st">55% · 31G</span></div>
-              <div class="d-tile d-full" title="Orianna"><span class="mono">ORI</span><span class="nm">Orianna</span><span class="st">52% · 23G</span></div>
+              <div class="d-tile" title="Camille — your main"><span class="mono">CAM</span><span class="nm">Camille</span><span class="st">62% · 47G · 3.8 KDA</span></div>
+              <div class="d-tile d-full" title="Fiora"><span class="mono">FIO</span><span class="nm">Fiora</span><span class="st">55% · 31G · 2.9 KDA</span></div>
+              <div class="d-tile d-full" title="Orianna"><span class="mono">ORI</span><span class="nm">Orianna</span><span class="st">52% · 23G · 3.2 KDA</span></div>
             </div>
+            <span class="d-side">YOUR PATTERNS</span>
+            <div class="d-flags" id="dPatF">
+              <span class="d-flag f-ok">EARLY: +12 CS AT 10</span>
+              <span class="d-flag f-warn">FIRST GROUP: 22:00 (RANK AVG 18:00)</span>
+              <span class="d-flag f-ok">DRAGON FIGHTS: 73%</span>
+            </div>
+            <span class="d-side">SESSION OBJECTIVES</span>
             <div class="d-flags" id="dObj">
               <span class="d-flag f-ok">WARD RIVER BY 3:00 — 3/4 HIT</span>
               <span class="d-flag f-warn">GROUP AFTER TOWER — 2/4 HIT</span>
@@ -610,35 +637,37 @@ body.gated{overflow:hidden}
           <div class="dc" aria-live="off"></div>
         </div>
 
-        <div class="demo-panel" id="panel-draft" role="tabpanel" aria-labelledby="tab-draft" hidden>
-          <div class="dg">
-            <div class="d-head"><span>RANKED DRAFT</span><span class="d-timer" id="dTimer">0:27</span><span id="dState">PICK 6/10</span></div>
-            <div class="d-bans" id="dBans">
-              <span class="d-ban x">YAS</span><span class="d-ban x">EVE</span><span class="d-ban" id="dBanV">—</span><span class="d-ban x">SYN</span><span class="d-ban x">KAT</span>
-              <span class="d-ban x">DRV</span><span class="d-ban x">MAL</span><span class="d-ban x">HEC</span><span class="d-ban x">GAR</span><span class="d-ban x">KAI</span>
+        <div class="demo-panel three" id="panel-draft" role="tabpanel" aria-labelledby="tab-draft" hidden>
+          <div class="dg-side blue">
+            <span class="d-side">YOUR TEAM</span>
+            <div class="d-tile empty" id="dYou" title="Your pick — top"><span class="mono">?</span><span class="nm">YOU</span></div>
+            <div class="d-tile d-full" title="Lee Sin — jungle"><span class="mono">LEE</span><span class="nm">Lee Sin</span></div>
+            <div class="d-tile d-full" title="Orianna — mid"><span class="mono">ORI</span><span class="nm">Orianna</span></div>
+            <div class="d-tile d-full" title="Miss Fortune — ADC"><span class="mono">MF</span><span class="nm">Miss Fortune</span></div>
+            <div class="d-tile d-full" title="Thresh — support"><span class="mono">THR</span><span class="nm">Thresh</span></div>
+            <span class="d-side mt d-full">BANS</span>
+            <div class="d-bans d-full">
+              <span class="d-ban x">YAS</span><span class="d-ban" id="dBanV">—</span><span class="d-ban x">KAT</span><span class="d-ban x">HEC</span><span class="d-ban x">KAI</span>
             </div>
-            <div class="d-cols">
-              <div class="d-col blue">
-                <span class="d-side">YOUR TEAM</span>
-                <div class="d-tile empty" id="dYou" title="Your pick — top"><span class="mono">?</span><span class="nm">YOU</span></div>
-                <div class="d-tile d-full" title="Lee Sin — jungle"><span class="mono">LEE</span><span class="nm">Lee Sin</span></div>
-                <div class="d-tile d-full" title="Orianna — mid"><span class="mono">ORI</span><span class="nm">Orianna</span></div>
-                <div class="d-tile d-full" title="Miss Fortune — ADC"><span class="mono">MF</span><span class="nm">Miss Fortune</span></div>
-                <div class="d-tile d-full" title="Thresh — support"><span class="mono">THR</span><span class="nm">Thresh</span></div>
-              </div>
-              <div class="d-col red">
-                <span class="d-side">ENEMY TEAM</span>
-                <div class="d-tile d-full" title="Sett — top"><span class="mono">SET</span><span class="nm">Sett</span></div>
-                <div class="d-tile empty" id="dKar" title="Enemy jungle"><span class="mono">?</span><span class="nm">Picking…</span></div>
-                <div class="d-tile d-full" title="Ahri — mid"><span class="mono">AHR</span><span class="nm">Ahri</span></div>
-                <div class="d-tile empty d-full" id="dJnx" title="Enemy ADC"><span class="mono">?</span><span class="nm">Picking…</span></div>
-                <div class="d-tile d-full" title="Nautilus — support"><span class="mono">NAU</span><span class="nm">Nautilus</span></div>
-              </div>
+          </div>
+          <div class="d-mid">
+            <div class="d-head"><span>RANKED DRAFT</span><span class="d-timer" id="dTimer">0:27</span><span id="dState">PICK 6/10</span></div>
+            <div class="dc" aria-live="off"></div>
+          </div>
+          <div class="dg-side red">
+            <span class="d-side">ENEMY TEAM</span>
+            <div class="d-tile d-full" title="Sett — top"><span class="mono">SET</span><span class="nm">Sett</span></div>
+            <div class="d-tile empty" id="dKar" title="Enemy jungle"><span class="mono">?</span><span class="nm">Picking…</span></div>
+            <div class="d-tile d-full" title="Ahri — mid"><span class="mono">AHR</span><span class="nm">Ahri</span></div>
+            <div class="d-tile empty d-full" id="dJnx" title="Enemy ADC"><span class="mono">?</span><span class="nm">Picking…</span></div>
+            <div class="d-tile d-full" title="Nautilus — support"><span class="mono">NAU</span><span class="nm">Nautilus</span></div>
+            <span class="d-side mt d-full">BANS</span>
+            <div class="d-bans d-full">
+              <span class="d-ban x">EVE</span><span class="d-ban x">SYN</span><span class="d-ban x">DRV</span><span class="d-ban x">MAL</span><span class="d-ban x">GAR</span>
             </div>
             <div class="d-meter" id="dMeter"><span>EARLY</span><span class="segs"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></span><span class="lab-r">LATE</span></div>
             <div class="d-meter-cap">THEIR POWER CURVE</div>
           </div>
-          <div class="dc" aria-live="off"></div>
         </div>
 
         <div class="demo-panel" id="panel-live" role="tabpanel" aria-labelledby="tab-live" hidden>
@@ -982,10 +1011,11 @@ else{
   let run=0,paused=false,cur=0,timers=[];
 
   const SCRIPTS=[
-    {total:15500,ev:[
-      {t:300,fx:'champs',text:"Welcome back. You've been on a tear — three straight wins, 68% over your last ten. Tonight we keep it rolling.",data:["STREAK: 3W","LAST 10: 68% WR"]},
-      {t:5200,badge:{cls:'next',txt:'→ TONIGHT\'S FOCUS'},text:"Ward river by three minutes, and group when first tower falls — you're farming two extra waves top while your team fights.",data:["DIED TO EARLY GANKS: 3 OF LAST 5 LOSSES"]},
-      {t:11400,fx:'lobby',text:"Champion Select detected. Entering draft."}
+    {total:15000,ev:[
+      {t:300,fx:'champs'},
+      {t:900,text:"Welcome back. Three straight wins, 68% over your last ten — and your Camille is carrying. Tonight's focus: ward river by three minutes, and group when first tower falls. You're farming two extra waves top while your team fights. Keep it rolling.",data:["STREAK: 3W","LAST 10: 68% WR","DIED TO GANKS: 3 OF LAST 5 LOSSES"]},
+      {t:6400,fx:'traits'},
+      {t:11600,fx:'lobby'}
     ]},
     {total:24500,ev:[
       {t:300,fx:'banVgo',text:"Ban Viego. He's 1W–4L into you recently — his resets punish your carry-heavy pool.",data:["VIEGO VS YOU: 1W–4L (LAST 5)","BAN IMPACT: +3.1% WR"]},
@@ -1015,7 +1045,8 @@ else{
   ];
 
   const FX={
-    champs(){$('#dChamps').classList.add('pop');$('#dLp').classList.add('fill');$('#dObj').classList.add('in');},
+    champs(){$('#dChamps').classList.add('pop');$('#dLp').classList.add('fill');},
+    traits(){$('#dPatF').classList.add('in');$('#dObj').classList.add('in');},
     lobby(){$('#dLobby').classList.add('in');},
     banVgo(){const b=$('#dBanV');b.textContent='VGO';b.classList.add('x');},
     jnxLock(){const t=$('#dJnx');t.querySelector('.mono').textContent='JNX';t.querySelector('.nm').textContent='Jinx';t.classList.remove('empty');t.classList.add('pop','flash-red');$('#dState').textContent='PICK 7/10';},
@@ -1062,7 +1093,7 @@ else{
     feeds[i].innerHTML='';
     if(i===0){
       $('#dChamps').classList.remove('pop');$('#dLp').classList.remove('fill');
-      $('#dObj').classList.remove('in');$('#dLobby').classList.remove('in');
+      $('#dPatF').classList.remove('in');$('#dObj').classList.remove('in');$('#dLobby').classList.remove('in');
     }else if(i===1){
       const bv=$('#dBanV');bv.textContent='—';bv.classList.remove('x');
       const k=$('#dKar');k.classList.add('empty');k.classList.remove('pop','flash-red');k.querySelector('.mono').textContent='?';k.querySelector('.nm').textContent='Picking…';
