@@ -10,7 +10,7 @@ A single-file teaser for **SEER, the AI coach for League of Legends**, with a no
 - `vercel.json` — static deploy config.
 
 ## Page structure (top to bottom)
-Nav (Demo/Why/Product/How + CTA) → Hero (headline, waitlist form #1, "Watch Seer cook") → coach-line marquee ribbon → **Seer in action** demo (auto-playing Draft / Live / Post-game tabs with word-by-word streaming coach messages; pauses on hover, seeks on tab click, cancels off-screen) → trust strip → Problem cards → Product cards (with "see it in the demo" jump links) → How it works (animated SVG mini-scenes) → mid-page form #2 → The Receipts (Gemini/Overwolf/Fnatic + founder note + roadmap pills) → FAQ (`details/summary`) → final CTA (the eye opens on arrival; form #3) → footer.
+Nav (Demo/Why/Product/How + CTA) → Hero (headline, waitlist form #1, "Watch Seer cook") → coach-line marquee ribbon → **Seer in action** demo (auto-playing Profile / Draft / Live / Post-game tabs mirroring the real app flow at sam-seer.vercel.app, with word-by-word streaming coach messages and data-point chips; pauses on hover, seeks on tab click, cancels off-screen) → trust strip → Problem cards → Product cards (with "see it in the demo" jump links) → How it works (animated SVG mini-scenes) → mid-page form #2 → The Receipts (Gemini/Overwolf/Fnatic + founder note + roadmap pills) → FAQ (`details/summary`) → final CTA (the eye opens on arrival; form #3) → footer.
 
 ## Waitlist backend (Supabase)
 - Project: `seer-marketing` (org: Sams personal, region: eu-west-2)
