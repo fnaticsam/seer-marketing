@@ -3,7 +3,7 @@
   "framework": null,
   "cleanUrls": true,
   "redirects": [
-    { "source": "/designsystem", "destination": "/designsystem-a", "permanent": false }
+    { "source": "/designsystem", "destination": "/designsystem-final", "permanent": false }
   ],
   "headers": [
     {

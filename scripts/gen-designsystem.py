@@ -7,6 +7,17 @@ MARK = (ROOT / "public/logos/seer-mark.svg").read_text()
 MARK_INNER = MARK.split(">", 1)[1].rsplit("</svg>", 1)[0]
 
 PAGES = [
+    dict(slug="final", num="00", name="Seer", em="Protocol",
+         mood="The final call: the product's own colours — zinc black, Seer green, hextech gold, team red and blue — wearing option D's clothes. Oswald display, flat boxes, reticle buttons. This is what ships.",
+         display="Oswald", display_css="'Oswald',sans-serif", display_ls=".03em", font_q="Oswald:wght@500;600",
+         tokens=dict(bg="#09090B", surface="#121215", field="#0C0C0F", ink="#F4F4F5", muted="#84848F",
+                     line="rgba(244,244,245,.12)", line_strong="rgba(244,244,245,.3)",
+                     primary="#28D397", on_primary="#04261A", secondary="#C8AA6E", alert="#FF4454",
+                     rec="#C8AA6E", ana="#D8B4FE", warn="#FF6B78", side_blue="#3B82F6", side_red="#FF4454"),
+         card_icon="var(--primary)",
+         swatches=[("#09090B","Void","bg"),("#121215","Console","surface"),("#F4F4F5","Zinc","ink"),
+                   ("#28D397","Seer Green","primary"),("#C8AA6E","Hex Gold","recommendation"),("#FF4454","Team Red","alert"),
+                   ("#3B82F6","Team Blue","blue side"),("#D8B4FE","Analysis","purple")]),
     dict(slug="a", num="01", name="Sovereign", em="Mint",
          mood="Closest to the victory screen. Deep sea-green rooms, bone-white type, mint as the voice of the coach — red only when something is about to kill you. Calm, surgical, post-match clarity.",
          display="Anton", display_css="'Anton',sans-serif", display_ls=".015em", font_q="Anton",
@@ -72,6 +83,12 @@ PAGES = [
                    ("#4F6BFF","Cobalt","primary"),("#6FE3C2","Mint","secondary"),("#FF7A30","Ember","warm support")]),
 ]
 
+DEFAULT_EXTRA = dict(rec="var(--primary)", ana="var(--secondary)", warn="var(--alert)",
+                     side_blue="var(--secondary)", side_red="var(--alert)")
+for _p in PAGES:
+    for _k, _v in DEFAULT_EXTRA.items():
+        _p["tokens"].setdefault(_k, _v)
+
 def tabs_html(current):
     out = []
     for p in PAGES:
@@ -103,6 +120,8 @@ TEMPLATE = """<!DOCTYPE html>
   --line:@@line@@;--line-strong:@@line_strong@@;
   --primary:@@primary@@;--on-primary:@@on_primary@@;
   --secondary:@@secondary@@;--alert:@@alert@@;
+  --rec:@@rec@@;--ana:@@ana@@;--warn:@@warn@@;
+  --side-blue:@@side_blue@@;--side-red:@@side_red@@;
   --display:@@DISPLAYCSS@@;--display-ls:@@DISPLAYLS@@;
 }
 body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--ink);line-height:1.5}
@@ -148,23 +167,19 @@ h1 em{font-style:normal;color:var(--primary)}
 .spec p{margin-top:14px;color:var(--muted);max-width:60ch;font-weight:300;font-size:15px}
 .spec .micro{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--primary)}
 .comps{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:26px 28px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
-.btn{position:relative;font-weight:500;font-size:14px;letter-spacing:.01em;border:0;cursor:pointer;padding:12px 22px;font-family:'Inter',sans-serif;transition:transform .15s,filter .2s,border-color .2s,box-shadow .25s}
+.btn{position:relative;font-weight:500;font-size:14px;letter-spacing:.01em;cursor:pointer;padding:12px 22px;font-family:'Inter',sans-serif;border-radius:10px;border:1px solid var(--line-strong);background:color-mix(in srgb,var(--ink) 4%,transparent);color:var(--ink);transition:transform .15s,filter .2s,border-color .2s,box-shadow .25s}
+.btn::before,.btn::after{content:"";position:absolute;width:10px;height:10px;border:1.5px solid var(--primary);transition:width .18s,height .18s;pointer-events:none}
+.btn::before{top:-4px;left:-4px;border-right:0;border-bottom:0;border-radius:10px 0 0 0}
+.btn::after{bottom:-4px;right:-4px;border-left:0;border-top:0;border-radius:0 0 10px 0}
+.btn:hover{transform:translateY(-1px);border-color:var(--primary);box-shadow:0 0 18px color-mix(in srgb,var(--primary) 22%,transparent)}
+.btn:hover::before,.btn:hover::after{width:15px;height:15px}
 .btn:active{transform:translateY(1px)}
-.btn.primary,.btn.alert{border-radius:3px;clip-path:polygon(0 0,100% 0,100% calc(100% - 11px),calc(100% - 11px) 100%,0 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.22)}
-.btn.primary{background:var(--primary);color:var(--on-primary);padding-right:40px}
-.btn.primary::after{content:"→";position:absolute;right:17px;top:50%;transform:translateY(-50%);transition:transform .2s}
-.btn.primary:hover{filter:brightness(1.08);transform:translateY(-1px)}
-.btn.primary:hover::after{transform:translate(4px,-50%)}
-.btn.alert{background:var(--alert);color:#fff}
-.btn.alert:hover{filter:brightness(1.08);transform:translateY(-1px)}
-.btn.ghost{background:color-mix(in srgb,var(--ink) 4%,transparent);color:var(--ink);border:1px solid var(--line-strong);border-radius:4px}
-.btn.ghost::before,.btn.ghost::after{content:"";position:absolute;width:9px;height:9px;border:1.5px solid var(--primary);transition:width .18s,height .18s}
-.btn.ghost::before{top:-1px;left:-1px;border-right:0;border-bottom:0;border-radius:4px 0 0 0}
-.btn.ghost::after{bottom:-1px;right:-1px;border-left:0;border-top:0;border-radius:0 0 4px 0}
-.btn.ghost:hover{border-color:var(--primary);box-shadow:0 0 18px color-mix(in srgb,var(--primary) 25%,transparent)}
-.btn.ghost:hover::before,.btn.ghost:hover::after{width:14px;height:14px}
-.field .btn.primary{padding:9px 32px 9px 16px}
-.field .btn.primary::after{right:12px}
+.btn.primary{background:var(--primary);color:var(--on-primary);border-color:transparent}
+.btn.primary:hover{filter:brightness(1.07);border-color:transparent}
+.btn.alert{background:var(--alert);color:#fff;border-color:transparent}
+.btn.alert::before,.btn.alert::after{border-color:var(--alert)}
+.btn.alert:hover{filter:brightness(1.07);border-color:transparent;box-shadow:0 0 18px color-mix(in srgb,var(--alert) 25%,transparent)}
+.field .btn{padding:9px 16px}
 .field{display:flex;gap:8px;background:var(--field);border:1px solid var(--line-strong);border-radius:10px;padding:6px;min-width:280px}
 .field input{flex:1;background:transparent;border:0;outline:0;color:var(--ink);font-size:14px;padding:8px 12px;font-family:'Inter',sans-serif}
 .field input::placeholder{color:var(--muted)}
@@ -208,10 +223,11 @@ h1 em{font-style:normal;color:var(--primary)}
 .stepper .timer .t{font-family:var(--display);font-size:30px;line-height:1;color:var(--primary)}
 .stepper .timer .u{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.26em;color:var(--muted)}
 .msg{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:18px 20px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px}
-.msg .typ{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;padding:4px 9px;border-radius:5px;margin-right:10px}
-.msg .typ.rec{color:var(--primary);background:color-mix(in srgb,var(--primary) 14%,transparent)}
-.msg .typ.ana{color:var(--secondary);background:color-mix(in srgb,var(--secondary) 14%,transparent)}
-.msg .typ.warn{color:var(--alert);background:color-mix(in srgb,var(--alert) 14%,transparent)}
+.typ{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;padding:4px 9px;border-radius:5px}
+.msg .typ{margin-right:10px}
+.msg .typ.rec,.typ.rec{color:var(--rec);background:color-mix(in srgb,var(--rec) 14%,transparent)}
+.msg .typ.ana,.typ.ana{color:var(--ana);background:color-mix(in srgb,var(--ana) 14%,transparent)}
+.msg .typ.warn,.typ.warn{color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)}
 .msg .ctx{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--muted)}
 .msg p{margin-top:11px;font-size:14px;font-weight:300;line-height:1.6}
 .msg p .caret{display:inline-block;width:8px;height:14px;background:var(--primary);vertical-align:-2px;margin-left:3px;animation:pulse 1s steps(1) infinite}
@@ -227,9 +243,9 @@ h1 em{font-style:normal;color:var(--primary)}
 .obj .hd{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .obj .hd b{font-size:14px;font-weight:600}
 .obj .hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;color:var(--secondary)}
-.obj .bar{height:6px;border-radius:3px;background:color-mix(in srgb,var(--ink) 8%,transparent);margin:12px 0 10px;overflow:hidden}
-.obj .bar i{display:block;height:100%;border-radius:3px;background:var(--secondary)}
-.obj .why{font-size:12.5px;color:var(--muted);font-weight:300}
+.bar{height:6px;border-radius:3px;background:color-mix(in srgb,var(--ink) 8%,transparent);margin:12px 0 10px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:3px;background:var(--secondary)}
+.why{font-size:12.5px;color:var(--muted);font-weight:300}
 .obj.miss .hd span{color:var(--alert)}
 .obj.miss .bar i{background:var(--alert)}
 .champ{display:flex;align-items:center;gap:13px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:13px 16px}
@@ -267,7 +283,33 @@ h1 em{font-style:normal;color:var(--primary)}
 .buildrow .bi{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.08em;padding:7px 11px;border-radius:6px;border:1px solid var(--line);color:var(--ink);background:var(--field)}
 .buildrow .arr{color:var(--muted);font-size:11px}
 .buildrow .bi.next{border-color:var(--primary);color:var(--primary)}
-@media(max-width:760px){.patterns,.verdicts{grid-template-columns:1fr 1fr}.msg{grid-template-columns:1fr}.msg .ent{justify-self:start}}
+.ident{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.idcard{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:18px 20px}
+.idcard .lab2{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.24em;color:var(--muted);margin-bottom:12px}
+.rank .row2{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.rank .row2 b{font-family:var(--display);font-size:24px;letter-spacing:var(--display-ls);color:var(--primary)}
+.rank .row2 span{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;color:var(--muted)}
+.rank .bar{margin-top:12px}
+.rank .bar i{background:var(--primary)}
+.rails{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.rail{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px;display:flex;flex-direction:column;gap:8px}
+.rail .side{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.24em;margin-bottom:2px}
+.rail.blue .side{color:var(--side-blue)}
+.rail.red .side{color:var(--side-red)}
+.rt{display:flex;align-items:center;gap:10px;padding:8px 11px;border-radius:8px;background:var(--field);border:1px solid var(--line)}
+.rail.blue .rt{border-color:color-mix(in srgb,var(--side-blue) 32%,transparent)}
+.rail.red .rt{border-color:color-mix(in srgb,var(--side-red) 30%,transparent)}
+.rt .m{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:8.5px;flex:0 0 auto}
+.rail.blue .rt .m{background:color-mix(in srgb,var(--side-blue) 16%,transparent);color:var(--side-blue)}
+.rail.red .rt .m{background:color-mix(in srgb,var(--side-red) 16%,transparent);color:var(--side-red)}
+.rt b{font-size:13px;font-weight:500}
+.rt .tagyou{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.12em;color:var(--primary);border:1px solid var(--primary);padding:2px 7px;border-radius:4px}
+.rt.pick{opacity:.55;border-style:dashed}
+.think{display:inline-flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.2em;color:var(--muted);padding:10px 16px;border:1px solid var(--line);border-radius:10px;background:var(--surface);width:max-content;margin-top:12px}
+.think .td{width:5px;height:5px;border-radius:50%;background:var(--primary);animation:pulse 1.1s ease-in-out infinite}
+.think .td.d2{animation-delay:.2s}
+.think .td.d3{animation-delay:.4s;margin-right:8px}
+@media(max-width:760px){.patterns,.verdicts{grid-template-columns:1fr 1fr}.msg{grid-template-columns:1fr}.msg .ent{justify-self:start}.rails{grid-template-columns:1fr}}
 footer{padding:40px 0;border-top:1px solid var(--line)}
 footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
 .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#0B0D0E}
@@ -289,7 +331,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
       <svg viewBox="70 76 242 172" fill="#ECE8E1"><use href="#mark"/></svg>
       <span class="wm">SEER</span>
     </a>
-    <div class="meta">Design system · v0.2<br>seven directions · league + valorant ready</div>
+    <div class="meta">Design system · v0.3<br>final + seven directions</div>
   </div>
   <nav class="tabs">
     @@TABS@@
@@ -332,7 +374,23 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
         <button class="btn ghost">Watch the demo</button>
         <button class="btn alert">Ban Viego</button>
         <div class="field"><input placeholder="your@email.com" /><button class="btn primary">Enter</button></div>
-        <div class="badges"><span class="bdg ok">✓ GG</span><span class="bdg warn">△ WARNING</span><span class="bdg next">→ NEXT FOCUS</span></div>
+        <div class="badges"><span class="typ rec">RECOMMENDATION</span><span class="typ ana">ANALYSIS</span><span class="bdg ok">✓ GG</span><span class="bdg warn">△ WARNING</span><span class="bdg next">→ NEXT FOCUS</span></div>
+      </div>
+    </div>
+
+    <div><div class="lab">Identity — riot login · rank</div>
+      <div class="ident">
+        <div class="idcard">
+          <div class="lab2">FIND YOUR PROFILE</div>
+          <div class="field"><input placeholder="Enter your Riot ID e.g. Gold#3010" /><button class="btn primary">→</button></div>
+          <p class="why" style="margin-top:12px">Seer reads your match history through the Riot Games API. It never sees your password.</p>
+        </div>
+        <div class="idcard rank">
+          <div class="lab2">CURRENT RANK</div>
+          <div class="row2"><b>GOLD II</b><span>67 LP · 39W–41L</span></div>
+          <div class="bar"><i style="width:67%"></i></div>
+          <p class="why" style="margin-top:12px">60% win rate over the last week. You've been on a tear.</p>
+        </div>
       </div>
     </div>
 
@@ -344,10 +402,22 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
       </div>
     </div>
 
-    <div><div class="lab">Draft flow — phase stepper</div>
+    <div><div class="lab">Draft flow — phase stepper · side rails</div>
       <div class="stepper">
         <span class="step done">PLANNING</span><span class="step done">BANS 1</span><span class="step done">PICKS 1</span><span class="step done">BANS 2</span><span class="step on">PICKS 2</span><span class="step">SUMMARY</span>
         <span class="timer"><span class="t">09</span><span class="u">SECONDS</span></span>
+      </div>
+      <div class="rails">
+        <div class="rail blue"><span class="side">BLUE SIDE</span>
+          <div class="rt you"><span class="m">CAM</span><b>Camille</b><span class="tagyou">YOU</span></div>
+          <div class="rt"><span class="m">ORI</span><b>Orianna</b></div>
+          <div class="rt"><span class="m">LEE</span><b>Lee Sin</b></div>
+        </div>
+        <div class="rail red"><span class="side">RED SIDE</span>
+          <div class="rt"><span class="m">SET</span><b>Sett</b></div>
+          <div class="rt"><span class="m">KAR</span><b>Karthus</b></div>
+          <div class="rt pick"><span class="m">?</span><b>Picking…</b></div>
+        </div>
       </div>
     </div>
 
@@ -370,6 +440,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
           <div class="ent"><div class="eic" style="background:color-mix(in srgb,var(--alert) 16%,transparent);color:var(--alert)">REY</div><div class="enm">REYNA</div><div class="est" style="color:var(--alert)">7/2</div></div>
         </div>
       </div>
+      <div class="think"><span class="td"></span><span class="td d2"></span><span class="td d3"></span>SEER IS THINKING</div>
     </div>
 
     <div><div class="lab">Player intel — objectives · mastery · patterns</div>
@@ -435,7 +506,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
 </div></section>
 
 <footer><div class="wrap">
-  <span>seer.coach · design system v0.2 · option @@NUM@@ of 07</span>
+  <span>seer.coach · design system v0.3 · option @@NUM@@</span>
   <span>new mark · monochrome-first · pick a lane</span>
 </div></footer>
 

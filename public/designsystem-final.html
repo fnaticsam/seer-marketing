@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SEER — Design System 04 · Spike Navy</title>
+<title>SEER — Design System 00 · Seer Protocol</title>
 <meta name="robots" content="noindex" />
 <link rel="icon" href="/logos/seer-mark-icon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -12,13 +12,13 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0F1923;--surface:#18242F;--field:#0B121A;
-  --ink:#ECE8E1;--muted:#93A1AC;
-  --line:rgba(236,232,225,.13);--line-strong:rgba(236,232,225,.3);
-  --primary:#FF4655;--on-primary:#FFF6F4;
-  --secondary:#53B9D1;--alert:#FF7A30;
-  --rec:var(--primary);--ana:var(--secondary);--warn:var(--alert);
-  --side-blue:var(--secondary);--side-red:var(--alert);
+  --bg:#09090B;--surface:#121215;--field:#0C0C0F;
+  --ink:#F4F4F5;--muted:#84848F;
+  --line:rgba(244,244,245,.12);--line-strong:rgba(244,244,245,.3);
+  --primary:#28D397;--on-primary:#04261A;
+  --secondary:#C8AA6E;--alert:#FF4454;
+  --rec:#C8AA6E;--ana:#D8B4FE;--warn:#FF6B78;
+  --side-blue:#3B82F6;--side-red:#FF4454;
   --display:'Oswald',sans-serif;--display-ls:.03em;
 }
 body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--ink);line-height:1.5}
@@ -231,11 +231,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
     <div class="meta">Design system · v0.3<br>final + seven directions</div>
   </div>
   <nav class="tabs">
-    <a href="/designsystem-final"><b>FINAL</b> Seer Protocol</a>
+    <a href="/designsystem-final" class="on"><b>FINAL</b> Seer Protocol</a>
     <a href="/designsystem-a"><b>A</b> Sovereign Mint</a>
     <a href="/designsystem-b"><b>B</b> Ember Radiant</a>
     <a href="/designsystem-c"><b>C</b> Bone Protocol</a>
-    <a href="/designsystem-d" class="on"><b>D</b> Spike Navy</a>
+    <a href="/designsystem-d"><b>D</b> Spike Navy</a>
     <a href="/designsystem-e"><b>E</b> Hextech Dusk</a>
     <a href="/designsystem-f"><b>F</b> Signal Mono</a>
     <a href="/designsystem-g"><b>G</b> Cobalt Clutch</a>
@@ -243,9 +243,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
 </div></header>
 
 <section class="opt"><div class="wrap">
-  <div class="tag">Option 04 · /designsystem-d</div>
-  <h1>Spike <em>Navy</em></h1>
-  <p class="mood">The home colours. Valorant's deep navy with Riot red as the lead voice — bone type, steel-cyan data, orange held back for warnings. The most literal tribute of the set, tuned to read just as well over the Rift.</p>
+  <div class="tag">Option 00 · /designsystem-final</div>
+  <h1>Seer <em>Protocol</em></h1>
+  <p class="mood">The final call: the product's own colours — zinc black, Seer green, hextech gold, team red and blue — wearing option D's clothes. Oswald display, flat boxes, reticle buttons. This is what ships.</p>
   <p class="fonts">DISPLAY: OSWALD · UI/BODY: INTER · DATA: JETBRAINS MONO · WORDMARK: ORBITRON</p>
 
   <div class="row">
@@ -260,12 +260,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
 
     <div><div class="lab">Colour</div>
       <div class="swatches">
-        <div class="sw"><div class="chip" style="background:#0F1923"></div><div class="info"><b>Navy</b>#0F1923 · bg</div></div>
-        <div class="sw"><div class="chip" style="background:#18242F"></div><div class="info"><b>Locker</b>#18242F · surface</div></div>
-        <div class="sw"><div class="chip" style="background:#ECE8E1"></div><div class="info"><b>Bone</b>#ECE8E1 · ink</div></div>
-        <div class="sw"><div class="chip" style="background:#FF4655"></div><div class="info"><b>Riot Red</b>#FF4655 · primary</div></div>
-        <div class="sw"><div class="chip" style="background:#53B9D1"></div><div class="info"><b>Steel</b>#53B9D1 · secondary</div></div>
-        <div class="sw"><div class="chip" style="background:#FF7A30"></div><div class="info"><b>Ember</b>#FF7A30 · alert</div></div>
+        <div class="sw"><div class="chip" style="background:#09090B"></div><div class="info"><b>Void</b>#09090B · bg</div></div>
+        <div class="sw"><div class="chip" style="background:#121215"></div><div class="info"><b>Console</b>#121215 · surface</div></div>
+        <div class="sw"><div class="chip" style="background:#F4F4F5"></div><div class="info"><b>Zinc</b>#F4F4F5 · ink</div></div>
+        <div class="sw"><div class="chip" style="background:#28D397"></div><div class="info"><b>Seer Green</b>#28D397 · primary</div></div>
+        <div class="sw"><div class="chip" style="background:#C8AA6E"></div><div class="info"><b>Hex Gold</b>#C8AA6E · recommendation</div></div>
+        <div class="sw"><div class="chip" style="background:#FF4454"></div><div class="info"><b>Team Red</b>#FF4454 · alert</div></div>
+        <div class="sw"><div class="chip" style="background:#3B82F6"></div><div class="info"><b>Team Blue</b>#3B82F6 · blue side</div></div>
+        <div class="sw"><div class="chip" style="background:#D8B4FE"></div><div class="info"><b>Analysis</b>#D8B4FE · purple</div></div>
       </div>
     </div>
 
@@ -415,7 +417,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
 </div></section>
 
 <footer><div class="wrap">
-  <span>seer.coach · design system v0.3 · option 04</span>
+  <span>seer.coach · design system v0.3 · option 00</span>
   <span>new mark · monochrome-first · pick a lane</span>
 </div></footer>
 
