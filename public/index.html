@@ -6,7 +6,7 @@
 <title>SEER — the AI coach for League of Legends</title>
 <meta name="description" content="It sees the game before you do. An AI coach that learns your win rates, your matchups, your champion pool — and coaches you live through draft, game, and post-mortem. Join the waitlist at seer.coach." />
 <link rel="icon" type="image/svg+xml" href="/logos/seer-mark-icon.svg" />
-<link rel="alternate icon" href="/seer-logo.png" />
+<link rel="alternate icon" href="/apple-touch-icon.png" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="canonical" href="https://seer.coach/" />
 <meta property="og:title" content="SEER — the AI coach for League of Legends" />
@@ -561,8 +561,7 @@ s.orb{position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;pointer
         <g id="pupil-group">
           <circle cx="100" cy="100" r="26" fill="#070707"/>
           <circle cx="100" cy="100" r="26" fill="none" stroke="rgba(40,211,151,.6)" stroke-width="1.2"/>
-          <circle class="glint" cx="91" cy="91" r="6" fill="rgba(225,255,242,.92)" filter="url(#soft)"/>
-          <circle cx="108" cy="108" r="2" fill="rgba(255,107,120,.8)"/>
+          <path class="glint" d="M100 82 C102.6 94 106 97.4 118 100 C106 102.6 102.6 106 100 118 C97.4 106 94 102.6 82 100 C94 97.4 97.4 94 100 82 Z" fill="rgba(232,255,245,.95)"/>
         </g>
         <g style="clip-path:circle(58px at 100px 100px)">
           <line class="scan-line" x1="42" y1="100" x2="158" y2="100" stroke="rgba(110,235,190,.78)" stroke-width="1"/>
@@ -881,7 +880,7 @@ s.orb{position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;pointer
         <circle cx="45" cy="45" r="43" fill="url(#glowGrad)"/>
         <circle class="ciris" cx="45" cy="45" r="30" fill="url(#irisGrad)"/>
         <circle cx="45" cy="45" r="30" fill="none" stroke="rgba(110,235,190,.6)" stroke-width="1"/>
-        <g id="ctaPupil"><circle cx="45" cy="45" r="13" fill="#070707"/><circle cx="40" cy="40" r="3.2" fill="rgba(225,255,242,.92)"/></g>
+        <g id="ctaPupil"><circle cx="45" cy="45" r="13" fill="#070707"/><path d="M45 36 C46.3 42 48 43.7 54 45 C48 46.3 46.3 48 45 54 C43.7 48 42 46.3 36 45 C42 43.7 43.7 42 45 36 Z" fill="rgba(232,255,245,.95)"/></g>
         <g><path class="lid lid-t" d="M15 45 A30 30 0 0 1 75 45 Z"/><path class="lid lid-b" d="M15 45 A30 30 0 0 0 75 45 Z"/></g>
       </svg></div>
       <span class="eyebrow">Coming soon</span>
@@ -1073,7 +1072,7 @@ else{
 
   function bubble(feed,badge){
     const b=document.createElement('div');b.className='d-bub typing';
-    b.innerHTML='<div class="d-meta"><svg class="d-av" viewBox="0 0 40 40" aria-hidden="true"><use href="#eyeMini"/></svg><span>SEER</span>'+(badge?'<b class="d-badge '+badge.cls+'">'+badge.txt+'</b>':'')+'</div><p></p>';
+    b.innerHTML='<div class="d-meta"><svg class="d-av" viewBox="70 76 242 172" aria-hidden="true" fill="currentColor"><use href="#markNew"/></svg><span>SEER</span>'+(badge?'<b class="d-badge '+badge.cls+'">'+badge.txt+'</b>':'')+'</div><p></p>';
     feed.appendChild(b);
     while(feed.children.length>5)feed.firstElementChild.remove();
     requestAnimationFrame(()=>b.classList.add('in'));

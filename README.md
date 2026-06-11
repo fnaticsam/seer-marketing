@@ -4,9 +4,10 @@ A single-file teaser for **SEER, the AI coach for League of Legends**, with a no
 
 ## Files
 - `public/index.html` — the entire site (HTML, CSS, JS inline). No build step.
-- `public/seer-logo.png` — logo (PNG favicon fallback; the primary favicon is an inline SVG data URI).
-- `public/og.png` — 1200×630 share card (Discord/X/Reddit embeds). Regenerate by rebuilding a scratch page from the hero eye + headline and screenshotting at 1200×630.
-- `public/apple-touch-icon.png` — 180×180, generated from the logo via `sips --padColor 0A0810`.
+- `public/logos/seer-mark.svg` — THE logo (traced new eye+star mark, `currentColor`); `seer-mark-icon.svg` is the favicon tile.
+- `public/apple-touch-icon.png` — 180×180 raster of the mark icon (also the PNG favicon fallback).
+- `public/seer-logo.png` — retired old teal badge (unused, kept for history).
+- `public/og.png` — 1200×630 share card (Discord/X/Reddit embeds). Regenerate via a scratch page (new mark + headline) screenshotted at 1200×630.
 - `vercel.json` — static deploy config.
 
 ## Page structure (top to bottom)
