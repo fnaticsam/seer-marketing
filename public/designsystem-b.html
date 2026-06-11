@@ -156,13 +156,37 @@ h1 em{font-style:normal;color:var(--primary)}
 .champ .cr{text-align:right}
 .champ .cr .wr{font-family:var(--display);font-size:22px;line-height:1;color:var(--primary)}
 .champ .cr .kd{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--muted)}
+@property --oa{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes orbit{to{--oa:360deg}}
+.orb{position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;pointer-events:none;background:conic-gradient(from var(--oa),transparent 0 76%,var(--orbc,var(--primary)) 92%,transparent 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:orbit 3.2s linear infinite}
+.btn .orb{inset:-1.5px}
+s.orb{text-decoration:none}
+.btn.alert .orb{--orbc:var(--alert)}
+.btn.primary .orb{--orbc:color-mix(in srgb,#fff 60%,var(--primary))}
 .patterns{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.pat{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:15px 16px}
-.pat .ph{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.22em;color:var(--muted)}
-.pat .pv{font-family:var(--display);font-size:26px;line-height:1.1;margin:6px 0 4px}
-.pat.good .pv{color:var(--secondary)}
-.pat.bad .pv{color:var(--alert)}
-.pat .pn{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.08em;color:var(--muted)}
+.pat{position:relative;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:17px 18px}
+.pat::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:conic-gradient(from var(--oa),transparent 0 70%,var(--pac) 88%,transparent 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:orbit 4.2s linear infinite;pointer-events:none}
+.pat.p1{--pac:var(--side-blue)}
+.pat.p2{--pac:var(--rec)}.pat.p2::before{animation-duration:5s;animation-delay:-1.6s}
+.pat.p3{--pac:var(--ana)}.pat.p3::before{animation-duration:4.6s;animation-delay:-2.8s}
+.pat .pchip{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;padding:4px 9px;border-radius:5px;color:var(--pac);background:color-mix(in srgb,var(--pac) 13%,transparent)}
+.pat .pv{font-family:var(--display);font-size:28px;line-height:1.1;margin:11px 0 2px;letter-spacing:var(--display-ls)}
+.pat .pv.good{color:var(--primary)}
+.pat .pv.bad{color:var(--warn)}
+.pat .psub{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.06em;color:var(--muted)}
+.pat p{margin-top:10px;font-size:12.5px;color:var(--muted);font-weight:300;line-height:1.6}
+.pat .pft{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;color:var(--muted)}
+@media(prefers-reduced-motion:reduce){.orb,.pat::before{animation:none}}
+.board{border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;margin-bottom:12px}
+.brow{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:16px 22px}
+.brow+.brow{border-top:1px solid var(--line)}
+.brow.dim{opacity:.4}
+.read{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.read .rk{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.06em}
+.read b{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:20px;color:var(--ink);letter-spacing:.02em}
+.seg{display:flex;gap:4px;margin-top:6px}
+.seg i{width:26px;height:3px;border-radius:1.5px;background:color-mix(in srgb,var(--ink) 14%,transparent)}
+.seg i.on{background:var(--primary);box-shadow:0 0 6px color-mix(in srgb,var(--primary) 55%,transparent)}
 .verdicts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .ver{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:15px 16px}
 .ver .vk{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.22em;color:var(--muted)}
@@ -283,10 +307,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
 
     <div><div class="lab">Components</div>
       <div class="comps">
-        <button class="btn primary">Claim your spot</button>
-        <button class="btn ghost">Watch the demo</button>
-        <button class="btn alert">Ban Viego</button>
-        <div class="field"><input placeholder="your@email.com" /><button class="btn primary">Enter</button></div>
+        <button class="btn primary"><s class="orb"></s>Claim your spot</button>
+        <button class="btn ghost"><s class="orb"></s>Watch the demo</button>
+        <button class="btn alert"><s class="orb"></s>Ban Viego</button>
+        <div class="field"><input placeholder="your@email.com" /><button class="btn primary"><s class="orb"></s>Enter</button></div>
         <div class="badges"><span class="typ rec">RECOMMENDATION</span><span class="typ ana">ANALYSIS</span><span class="bdg ok">✓ GG</span><span class="bdg warn">△ WARNING</span><span class="bdg next">→ NEXT FOCUS</span></div>
       </div>
     </div>
@@ -295,7 +319,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
       <div class="ident">
         <div class="idcard">
           <div class="lab2">FIND YOUR PROFILE</div>
-          <div class="field"><input placeholder="Enter your Riot ID e.g. Gold#3010" /><button class="btn primary">→</button></div>
+          <div class="field"><input placeholder="Enter your Riot ID e.g. Gold#3010" /><button class="btn primary"><s class="orb"></s>→</button></div>
           <p class="why" style="margin-top:12px">Seer reads your match history through the Riot Games API. It never sees your password.</p>
         </div>
         <div class="idcard rank">
@@ -311,7 +335,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
       <div class="status">
         <span class="dot"></span><b>LOBBY DETECTED</b>
         <span>Champion Select found. Seer is ready to coach.</span>
-        <button class="btn primary">Enter draft</button>
+        <button class="btn primary"><s class="orb"></s>Enter draft</button>
       </div>
     </div>
 
@@ -380,13 +404,25 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
         </div>
       </div>
       <div class="patterns" style="margin-top:12px">
-        <div class="pat good"><div class="ph">EARLY GAME</div><div class="pv">+12 CS</div><div class="pn">AVG LEAD AT 10 MIN</div></div>
-        <div class="pat bad"><div class="ph">MID GAME</div><div class="pv">22:00</div><div class="pn">FIRST GROUP · RANK AVG 18:00</div></div>
-        <div class="pat good"><div class="ph">LATE GAME</div><div class="pv">73%</div><div class="pn">DRAGON PARTICIPATION · RANK AVG 61%</div></div>
+        <div class="pat p1"><span class="pchip">EARLY GAME</span><div class="pv good">+12 CS</div><div class="psub">avg lead at 10 min</div><p>Your laning is strong — but you're dying to ganks in 40% of losses. Ward the river bush before 3:00.</p><div class="pft">DEATHS TO GANKS: 40% OF LOSSES</div></div>
+        <div class="pat p2"><span class="pchip">MID GAME</span><div class="pv bad">22 MIN</div><div class="psub">avg first group</div><p>You're grouping late — first teamfight at 22 minutes vs 18 for your rank. Rotate after top tower.</p><div class="pft">RANK AVG: 18 MIN</div></div>
+        <div class="pat p3"><span class="pchip">LATE GAME</span><div class="pv good">73%</div><div class="psub">dragon participation</div><p>Your objective control is a real strength — keep using Hookshot to zone carries during objectives.</p><div class="pft">RANK AVG: 61%</div></div>
       </div>
     </div>
 
-    <div><div class="lab">Post-game — verdicts · breakdown · build</div>
+    <div><div class="lab">Post-game — scoreboard · verdicts · breakdown · build</div>
+      <div class="board">
+        <div class="brow">
+          <div class="read"><span class="rk">8 / 2 / 12</span><b>10.0 KDA</b><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+          <div class="read"><span class="rk">Vision</span><b>24</b><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
+          <div class="read"><span class="rk">CS/min</span><b>7.9</b><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div>
+        </div>
+        <div class="brow dim">
+          <div class="read"><span class="rk">5 / 4 / 9</span><b>3.5 KDA</b><span class="seg"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></div>
+          <div class="read"><span class="rk">Vision</span><b>11</b><span class="seg"><i class="on"></i><i></i><i></i><i></i><i></i></span></div>
+          <div class="read"><span class="rk">CS/min</span><b>5.1</b><span class="seg"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></div>
+        </div>
+      </div>
       <div class="verdicts">
         <div class="ver"><div class="vk">⚔ KILLS</div><div class="vg great">GREAT</div><div class="vm">8/2/12 · KP 71%</div></div>
         <div class="ver"><div class="vk">💰 GOLD &amp; CS</div><div class="vg good">GOOD</div><div class="vm">198 CS · 7.0/MIN</div></div>
