@@ -2,6 +2,9 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/designsystem", "destination": "/designsystem-a", "permanent": false }
+  ],
   "headers": [
     {
       "source": "/(.*)",

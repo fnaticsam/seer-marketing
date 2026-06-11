@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SEER — Design System 06 · Signal Mono</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="/logos/seer-mark-icon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@700&family=JetBrains+Mono:wght@400;500&family=Inter+Tight:wght@700;800&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0C0C0D;--surface:#161618;--field:#0A0A0B;
+  --ink:#EDEAE4;--muted:#8F8C86;
+  --line:rgba(237,234,228,.13);--line-strong:rgba(237,234,228,.3);
+  --primary:#FF5A1F;--on-primary:#160A04;
+  --secondary:#B9B5AD;--alert:#FF4655;
+  --display:'Inter Tight',sans-serif;--display-ls:-.01em;
+}
+body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--ink);line-height:1.5}
+.wrap{width:min(1180px,92vw);margin:0 auto}
+/* header + tabs */
+.dshead{padding:26px 0 0;background:#0B0D0E;color:#ECE8E1;border-bottom:1px solid rgba(255,255,255,.1)}
+.dshead .top{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding-bottom:20px}
+.dsbrand{display:flex;align-items:center;gap:14px}
+.dsbrand svg{width:44px;height:auto}
+.dsbrand .wm{font-family:'Orbitron',sans-serif;font-weight:700;font-size:19px;letter-spacing:.42em}
+.dshead .meta{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;color:#8d8a82;text-transform:uppercase;text-align:right;line-height:1.9}
+.tabs{display:flex;gap:4px;overflow-x:auto;padding-bottom:0;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;padding:11px 16px;font-size:12.5px;color:#8d8a82;border:1px solid transparent;border-bottom:0;border-radius:10px 10px 0 0;text-decoration:none;font-weight:500}
+.tabs a b{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;opacity:.7}
+.tabs a:hover{color:#ECE8E1}
+.tabs a.on{background:var(--bg);color:var(--ink);border-color:rgba(255,255,255,.12)}
+/* band */
+.opt{padding:64px 0 84px}
+.tag{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--primary);display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.tag::before{content:"";width:26px;height:2px;background:var(--primary)}
+h1{font-family:var(--display);font-size:clamp(40px,6vw,76px);line-height:.98;text-transform:uppercase;letter-spacing:var(--display-ls);margin-bottom:10px}
+h1 em{font-style:normal;color:var(--primary)}
+.mood{color:var(--muted);font-weight:300;max-width:62ch;font-size:15.5px}
+.fonts{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--muted)}
+.row{display:grid;gap:16px;margin-top:38px}
+.lab{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.logorow{display:flex;align-items:center;gap:clamp(24px,5vw,64px);flex-wrap:wrap;padding:26px 28px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.lock{display:flex;align-items:center;gap:18px}
+.lock svg{width:64px;height:auto}
+.lock .wm{font-family:'Orbitron',sans-serif;font-weight:700;font-size:26px;letter-spacing:.42em}
+.lock.small svg{width:34px}
+.lock.small .wm{font-size:15px}
+.mk{width:64px;height:auto}
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.sw{border-radius:10px;border:1px solid var(--line);overflow:hidden}
+.sw .chip{height:84px}
+.sw .info{padding:10px 12px;background:var(--surface);font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.06em;line-height:1.8;color:var(--muted)}
+.sw .info b{display:block;color:var(--ink);font-weight:500;text-transform:uppercase;letter-spacing:.14em}
+.spec{padding:30px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.spec .big{font-family:var(--display);text-transform:uppercase;font-size:clamp(30px,4.6vw,58px);line-height:1;letter-spacing:var(--display-ls)}
+.spec .big em{font-style:normal;color:var(--primary)}
+.spec p{margin-top:14px;color:var(--muted);max-width:60ch;font-weight:300;font-size:15px}
+.spec .micro{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--primary)}
+.comps{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:26px 28px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.btn{font-weight:700;font-size:14px;letter-spacing:.04em;border:0;border-radius:8px;cursor:pointer;padding:13px 24px;text-transform:uppercase;font-family:'Inter',sans-serif}
+.btn.primary{background:var(--primary);color:var(--on-primary)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line-strong)}
+.btn.alert{background:var(--alert);color:#fff}
+.field{display:flex;gap:8px;background:var(--field);border:1px solid var(--line-strong);border-radius:10px;padding:6px;min-width:280px}
+.field input{flex:1;background:transparent;border:0;outline:0;color:var(--ink);font-size:14px;padding:8px 12px;font-family:'Inter',sans-serif}
+.field input::placeholder{color:var(--muted)}
+.field .btn{padding:9px 18px;font-size:12.5px}
+.badges{display:flex;gap:8px;flex-wrap:wrap}
+.bdg{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;padding:5px 10px;border-radius:6px;border:1px solid}
+.bdg.ok{color:var(--secondary);border-color:var(--secondary)}
+.bdg.warn{color:var(--alert);border-color:var(--alert)}
+.bdg.next{color:var(--primary);border-color:var(--primary)}
+.samples{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.card{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:20px}
+.card .who{display:flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.22em;color:var(--primary);margin-bottom:10px}
+.card .who svg{width:18px;height:auto}
+.card p{font-size:14px;font-weight:300;line-height:1.6}
+.card .data{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.card .data span{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;padding:4px 8px;border-radius:5px;border:1px solid var(--line);color:var(--muted)}
+.card .game{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
+.statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px 14px;text-align:center}
+.stat .v{font-family:var(--display);font-size:clamp(22px,2.6vw,34px);text-transform:uppercase;line-height:1;letter-spacing:var(--display-ls)}
+.stat .v.win{color:var(--primary)}
+.stat .v.alert{color:var(--alert)}
+.stat .k{margin-top:7px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.24em;color:var(--muted)}
+.vstrip{display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid var(--line);border-radius:12px;padding:16px 24px;background:linear-gradient(90deg,var(--surface),transparent 60%,var(--surface))}
+.vstrip .vic{font-family:var(--display);font-size:clamp(34px,5vw,54px);text-transform:uppercase;letter-spacing:.06em;color:var(--primary);line-height:1}
+.vstrip .score{font-family:var(--display);font-size:clamp(24px,3.4vw,40px)}
+.vstrip .score i{font-style:normal;color:var(--alert)}
+.vstrip .mvp{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.26em;color:var(--muted)}
+footer{padding:40px 0;border-top:1px solid var(--line)}
+footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#0B0D0E}
+.gate.off{display:none}
+.gate form{display:flex;gap:8px}
+.gate input{background:#15181A;border:1px solid rgba(255,255,255,.2);border-radius:8px;color:#ECE8E1;padding:11px 14px;font-size:15px;outline:0}
+.gate button{background:#ECE8E1;color:#0B0D0E;border:0;border-radius:8px;padding:11px 18px;font-weight:700;cursor:pointer}
+@media(max-width:640px){.statrow{grid-template-columns:1fr 1fr}.vstrip{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><g id="mark"><path d="M 155.5 80 L 156 80.5 L 153.5 83 L 146.5 87 L 131 102.5 L 125 111.5 L 115 133.5 L 114 141.5 L 113 142.5 L 113 146.5 L 112 147.5 L 112 155.5 L 111 156.5 L 111 170.5 L 112 171.5 L 112 179.5 L 113 180.5 L 114 189.5 L 115 190.5 L 115 193.5 L 118 199.5 L 118 201.5 L 124 213.5 L 130 222.5 L 140.5 234 L 152 242.5 Q 151.2 243.7 150.5 242 L 145.5 241 L 128.5 231 L 111 214.5 L 101 199.5 Q 98.5 196 98 190.5 L 92 181.5 L 82 160.5 L 82 158.5 L 78 148.5 L 78 145.5 L 76 140.5 L 76 136.5 L 75 135.5 L 75 129.5 L 74 128.5 L 74 107.5 L 75.5 106 L 79 109.5 Q 83.2 117.8 90.5 123 L 96.5 127 L 101 127 L 102 123.5 L 110 111.5 L 124.5 97 L 137.5 88 L 155.5 80 Z "/><path d="M 231.5 82 L 237.5 85 L 239.5 85 L 248.5 91 L 251.5 92 L 260.5 99 L 270 108.5 L 277 117.5 L 283 129.5 L 290 139.5 L 301 162.5 L 301 165.5 L 305 175.5 L 305 178.5 L 307 183.5 L 307 188.5 L 308 189.5 L 308 216 Q 305.3 217.1 306 214.5 L 299 205.5 L 292.5 199 L 284.5 194 L 274 211.5 L 262.5 224 L 246.5 236 L 232.5 243 L 227.5 244 Q 226 243 228.5 242 L 234.5 239 L 248 226.5 L 260 209.5 L 268 189.5 L 268 186.5 L 270 181.5 L 270 175.5 L 271 174.5 L 271 147.5 L 270 146.5 L 270 141.5 L 269 140.5 L 269 136.5 L 267 132.5 L 267 129.5 L 262 119.5 L 262 117.5 L 252 101.5 L 243.5 92 L 242.5 92 L 236.5 86 L 232.5 84 Q 230 83 231.5 82 Z "/><path d="M 191.5 123 L 193 126.5 L 194 132.5 L 196 135.5 L 196 137.5 Q 198.5 139 199 142.5 L 206.5 151 L 219.5 159 L 221.5 159 L 225.5 161 L 228.5 161 L 231 162.5 L 228.5 164 L 224.5 164 L 214.5 168 L 202 178.5 L 195 189.5 L 191.5 202 L 190 200.5 L 190 196.5 L 185 184.5 L 173.5 172 L 163.5 166 L 161.5 166 L 157.5 164 L 154.5 164 L 152 162.5 L 153.5 161 L 157.5 161 L 167.5 157 L 173.5 153 L 182 144.5 L 188 134.5 L 188 132.5 L 190 128.5 L 190 124.5 L 191.5 123 Z "/></g></defs></svg>
+
+<div class="gate" id="gate"><form><input type="password" placeholder="speak the word" aria-label="Password" /><button>Enter</button></form></div>
+
+<header class="dshead"><div class="wrap">
+  <div class="top">
+    <a class="dsbrand" href="/" style="color:inherit;text-decoration:none">
+      <svg viewBox="70 76 242 172" fill="#ECE8E1"><use href="#mark"/></svg>
+      <span class="wm">SEER</span>
+    </a>
+    <div class="meta">Design system · v0.2<br>seven directions · league + valorant ready</div>
+  </div>
+  <nav class="tabs">
+    <a href="/designsystem-a"><b>A</b> Sovereign Mint</a>
+    <a href="/designsystem-b"><b>B</b> Ember Radiant</a>
+    <a href="/designsystem-c"><b>C</b> Bone Protocol</a>
+    <a href="/designsystem-d"><b>D</b> Spike Navy</a>
+    <a href="/designsystem-e"><b>E</b> Hextech Dusk</a>
+    <a href="/designsystem-f" class="on"><b>F</b> Signal Mono</a>
+    <a href="/designsystem-g"><b>G</b> Cobalt Clutch</a>
+  </nav>
+</div></header>
+
+<section class="opt"><div class="wrap">
+  <div class="tag">Option 06 · /designsystem-f</div>
+  <h1>Signal <em>Mono</em></h1>
+  <p class="mood">Strip everything. Ink, charcoal, warm grey — and one signal flare of orange. The quietest room in esports; confidence by subtraction. Reads as a precision tool, not a poster, and disappears behind any game it sits on.</p>
+  <p class="fonts">DISPLAY: INTER TIGHT · UI/BODY: INTER · DATA: JETBRAINS MONO · WORDMARK: ORBITRON</p>
+
+  <div class="row">
+    <div><div class="lab">Logo</div>
+      <div class="logorow">
+        <div class="lock"><svg viewBox="70 76 242 172" fill="var(--ink)"><use href="#mark"/></svg><span class="wm">SEER</span></div>
+        <svg class="mk" viewBox="70 76 242 172" fill="var(--primary)"><use href="#mark"/></svg>
+        <svg class="mk" viewBox="70 76 242 172" fill="var(--secondary)"><use href="#mark"/></svg>
+        <div class="lock small"><svg viewBox="70 76 242 172" fill="var(--muted)"><use href="#mark"/></svg><span class="wm" style="color:var(--muted)">SEER</span></div>
+      </div>
+    </div>
+
+    <div><div class="lab">Colour</div>
+      <div class="swatches">
+        <div class="sw"><div class="chip" style="background:#0C0C0D"></div><div class="info"><b>Void</b>#0C0C0D · bg</div></div>
+        <div class="sw"><div class="chip" style="background:#161618"></div><div class="info"><b>Studio</b>#161618 · surface</div></div>
+        <div class="sw"><div class="chip" style="background:#EDEAE4"></div><div class="info"><b>Chalk</b>#EDEAE4 · ink</div></div>
+        <div class="sw"><div class="chip" style="background:#FF5A1F"></div><div class="info"><b>Signal</b>#FF5A1F · primary</div></div>
+        <div class="sw"><div class="chip" style="background:#B9B5AD"></div><div class="info"><b>Warm Grey</b>#B9B5AD · secondary</div></div>
+        <div class="sw"><div class="chip" style="background:#FF4655"></div><div class="info"><b>Riot Red</b>#FF4655 · alert</div></div>
+      </div>
+    </div>
+
+    <div><div class="lab">Type</div>
+      <div class="spec">
+        <div class="big">It sees the game <em>before you do.</em></div>
+        <p>Seer plugs into your account, learns your win rates, your matchup history, your cursed champion pool — then coaches you live through draft, the round, and the post-mortem.</p>
+        <div class="micro">Ranked draft · 0:27 · locked in</div>
+      </div>
+    </div>
+
+    <div><div class="lab">Components</div>
+      <div class="comps">
+        <button class="btn primary">Claim your spot</button>
+        <button class="btn ghost">Watch the demo</button>
+        <button class="btn alert">Ban Viego</button>
+        <div class="field"><input placeholder="your@email.com" /><button class="btn primary">Enter</button></div>
+        <div class="badges"><span class="bdg ok">✓ GG</span><span class="bdg warn">△ WARNING</span><span class="bdg next">→ NEXT FOCUS</span></div>
+      </div>
+    </div>
+
+    <div><div class="lab">In play</div>
+      <div class="samples">
+        <div class="card">
+          <div class="who"><svg viewBox="70 76 242 172" fill="var(--primary)"><use href="#mark"/></svg>SEER<span class="bdg next" style="margin-left:auto">→ NEXT BUY</span></div>
+          <p>Zhonya's second on Orianna — Karthus presses R off every reset. You're 250g short, base after this wave.</p>
+          <div class="data"><span>KARTHUS R AT 11: ~450 DMG</span><span>ZHONYA'S: 2600G</span></div>
+          <div class="game">League of Legends</div>
+        </div>
+        <div class="card">
+          <div class="who"><svg viewBox="70 76 242 172" fill="var(--primary)"><use href="#mark"/></svg>SEER<span class="bdg warn" style="margin-left:auto">△ WARNING</span></div>
+          <p>Save Updraft — Reyna has played your flank on B three rounds straight. Hold it until she peeks.</p>
+          <div class="data"><span>REYNA: 7/2 ON B SITE</span><span>HER ENTRY: 78% DRY</span></div>
+          <div class="game">Valorant</div>
+        </div>
+        <div class="statrow" style="grid-column:1/-1">
+          <div class="stat"><div class="v win">13–11</div><div class="k">VICTORY · SPLIT</div></div>
+          <div class="stat"><div class="v">18/6/8</div><div class="k">KDA · JETT</div></div>
+          <div class="stat"><div class="v alert">364</div><div class="k">COMBAT SCORE · MVP</div></div>
+        </div>
+        <div class="vstrip" style="grid-column:1/-1">
+          <span class="vic">Victory</span><span class="score">13 <i>–</i> 11</span><span class="mvp">MVP · BOASTER · 364 ACS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <span>seer.coach · design system v0.2 · option 06 of 07</span>
+  <span>new mark · monochrome-first · pick a lane</span>
+</div></footer>
+
+<script>
+(function(){
+  const gate=document.getElementById('gate');
+  const KEY='seer-gate', HASH='076a89c23179cedfc61171fe400ecf01fb76b9a48a68fb82dd0cd688d684d900';
+  if(localStorage.getItem(KEY)==='ok'){gate.classList.add('off');return;}
+  const form=gate.querySelector('form'),input=gate.querySelector('input');
+  async function sha(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');}
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    if(await sha(input.value.trim().toLowerCase())===HASH){localStorage.setItem(KEY,'ok');gate.classList.add('off');}
+    else input.select();
+  });
+  input.focus();
+})();
+</script>
+</body>
+</html>
