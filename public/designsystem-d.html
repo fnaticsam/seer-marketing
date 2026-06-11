@@ -94,6 +94,81 @@ h1 em{font-style:normal;color:var(--primary)}
 .vstrip .score{font-family:var(--display);font-size:clamp(24px,3.4vw,40px)}
 .vstrip .score i{font-style:normal;color:var(--alert)}
 .vstrip .mvp{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.26em;color:var(--muted)}
+/* app patterns */
+.status{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;padding:14px 18px;background:color-mix(in srgb,var(--primary) 6%,var(--surface))}
+.status .dot{width:9px;height:9px;border-radius:3px;background:var(--primary);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.3}}
+.status b{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--primary)}
+.status span{color:var(--muted);font-size:13px;font-weight:300}
+.status .btn{margin-left:auto}
+.stepper{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--surface)}
+.step{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;padding:7px 13px;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+.step.done{color:var(--ink);border-color:var(--line-strong)}
+.step.on{background:var(--primary);color:var(--on-primary);border-color:transparent}
+.stepper .timer{margin-left:auto;display:flex;align-items:baseline;gap:8px}
+.stepper .timer .t{font-family:var(--display);font-size:30px;line-height:1;color:var(--primary)}
+.stepper .timer .u{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.26em;color:var(--muted)}
+.msg{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:18px 20px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px}
+.msg .typ{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;padding:4px 9px;border-radius:5px;margin-right:10px}
+.msg .typ.rec{color:var(--primary);background:color-mix(in srgb,var(--primary) 14%,transparent)}
+.msg .typ.ana{color:var(--secondary);background:color-mix(in srgb,var(--secondary) 14%,transparent)}
+.msg .typ.warn{color:var(--alert);background:color-mix(in srgb,var(--alert) 14%,transparent)}
+.msg .ctx{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--muted)}
+.msg p{margin-top:11px;font-size:14px;font-weight:300;line-height:1.6}
+.msg p .caret{display:inline-block;width:8px;height:14px;background:var(--primary);vertical-align:-2px;margin-left:3px;animation:pulse 1s steps(1) infinite}
+.msg .bullets{margin-top:11px;display:flex;flex-direction:column;gap:5px}
+.msg .bullets span{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.04em;color:var(--muted)}
+.msg .bullets span::before{content:"· ";color:var(--primary)}
+.msg .ent{align-self:center;text-align:center;border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:92px;background:var(--field)}
+.msg .ent .eic{width:40px;height:40px;border-radius:8px;display:grid;place-items:center;margin:0 auto 8px;font-family:'JetBrains Mono',monospace;font-size:10px;background:color-mix(in srgb,var(--primary) 16%,transparent);color:var(--primary)}
+.msg .ent .enm{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--muted)}
+.msg .ent .est{margin-top:3px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--primary)}
+.intel{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.obj{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:18px 20px}
+.obj .hd{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.obj .hd b{font-size:14px;font-weight:600}
+.obj .hd span{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;color:var(--secondary)}
+.obj .bar{height:6px;border-radius:3px;background:color-mix(in srgb,var(--ink) 8%,transparent);margin:12px 0 10px;overflow:hidden}
+.obj .bar i{display:block;height:100%;border-radius:3px;background:var(--secondary)}
+.obj .why{font-size:12.5px;color:var(--muted);font-weight:300}
+.obj.miss .hd span{color:var(--alert)}
+.obj.miss .bar i{background:var(--alert)}
+.champ{display:flex;align-items:center;gap:13px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:13px 16px}
+.champ .cic{width:42px;height:42px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto;font-family:'JetBrains Mono',monospace;font-size:10.5px;background:color-mix(in srgb,var(--primary) 14%,transparent);color:var(--primary)}
+.champ .cm{flex:1;min-width:0}
+.champ .cm b{font-size:14.5px;font-weight:600;display:block}
+.champ .cm span{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;color:var(--muted)}
+.champ .cr{text-align:right}
+.champ .cr .wr{font-family:var(--display);font-size:22px;line-height:1;color:var(--primary)}
+.champ .cr .kd{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--muted)}
+.patterns{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.pat{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:15px 16px}
+.pat .ph{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.22em;color:var(--muted)}
+.pat .pv{font-family:var(--display);font-size:26px;line-height:1.1;margin:6px 0 4px}
+.pat.good .pv{color:var(--secondary)}
+.pat.bad .pv{color:var(--alert)}
+.pat .pn{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.08em;color:var(--muted)}
+.verdicts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ver{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:15px 16px}
+.ver .vk{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.22em;color:var(--muted)}
+.ver .vg{font-family:var(--display);font-size:20px;text-transform:uppercase;margin:6px 0 4px}
+.ver .vg.great{color:var(--secondary)}
+.ver .vg.good{color:var(--primary)}
+.ver .vg.avg{color:var(--muted)}
+.ver .vm{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--muted)}
+.phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.phs{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px 16px}
+.phs .pt{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.14em;padding:3px 8px;border-radius:5px;margin-bottom:9px}
+.phs .pt.early{color:var(--secondary);background:color-mix(in srgb,var(--secondary) 14%,transparent)}
+.phs .pt.mid{color:var(--primary);background:color-mix(in srgb,var(--primary) 14%,transparent)}
+.phs .pt.late{color:var(--ink);background:color-mix(in srgb,var(--ink) 10%,transparent)}
+.phs .pt.watch{color:var(--alert);background:color-mix(in srgb,var(--alert) 14%,transparent)}
+.phs p{font-size:12px;color:var(--muted);font-weight:300;line-height:1.55}
+.buildrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px 18px}
+.buildrow .bi{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.08em;padding:7px 11px;border-radius:6px;border:1px solid var(--line);color:var(--ink);background:var(--field)}
+.buildrow .arr{color:var(--muted);font-size:11px}
+.buildrow .bi.next{border-color:var(--primary);color:var(--primary)}
+@media(max-width:760px){.patterns,.verdicts{grid-template-columns:1fr 1fr}.msg{grid-template-columns:1fr}.msg .ent{justify-self:start}}
 footer{padding:40px 0;border-top:1px solid var(--line)}
 footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
 .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#0B0D0E}
@@ -173,20 +248,91 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
       </div>
     </div>
 
-    <div><div class="lab">In play</div>
+    <div><div class="lab">Game status — lobby detection</div>
+      <div class="status">
+        <span class="dot"></span><b>LOBBY DETECTED</b>
+        <span>Champion Select found. Seer is ready to coach.</span>
+        <button class="btn primary">Enter draft</button>
+      </div>
+    </div>
+
+    <div><div class="lab">Draft flow — phase stepper</div>
+      <div class="stepper">
+        <span class="step done">PLANNING</span><span class="step done">BANS 1</span><span class="step done">PICKS 1</span><span class="step done">BANS 2</span><span class="step on">PICKS 2</span><span class="step">SUMMARY</span>
+        <span class="timer"><span class="t">09</span><span class="u">SECONDS</span></span>
+      </div>
+    </div>
+
+    <div><div class="lab">Coach messages — full anatomy</div>
+      <div class="row" style="margin-top:0;gap:12px">
+        <div class="msg">
+          <div>
+            <span class="typ rec">RECOMMENDATION</span><span class="ctx">Your build path · Enemy threats</span>
+            <p>Build Zhonya's Hourglass second on Orianna. It counters both Karthus R and Nautilus engage — the Stopwatch component alone could save a key teamfight.</p>
+            <div class="bullets"><span>ZHONYA'S HOURGLASS (2600G)</span><span>COUNTERS KARTHUS R + NAUTILUS ENGAGE</span><span>STOPWATCH COMPONENT: EARLY SAFETY</span></div>
+          </div>
+          <div class="ent"><div class="eic">ZH</div><div class="enm">ZHONYA'S</div><div class="est">2600G</div></div>
+        </div>
+        <div class="msg">
+          <div>
+            <span class="typ warn">WARNING</span><span class="ctx">Live vision tracking</span>
+            <p>Save Updraft — Reyna has played your flank on B three rounds straight. Hold it until she peeks.<span class="caret"></span></p>
+            <div class="bullets"><span>REYNA: 7/2 ON B SITE</span><span>HER ENTRY: 78% DRY</span></div>
+          </div>
+          <div class="ent"><div class="eic" style="background:color-mix(in srgb,var(--alert) 16%,transparent);color:var(--alert)">REY</div><div class="enm">REYNA</div><div class="est" style="color:var(--alert)">7/2</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div><div class="lab">Player intel — objectives · mastery · patterns</div>
+      <div class="intel">
+        <div class="obj">
+          <div class="hd"><b>Ward river by 3:00</b><span>3/4 GAMES HIT · 75%</span></div>
+          <div class="bar"><i style="width:75%"></i></div>
+          <p class="why">You died to early ganks in 3 of your last 5 losses.</p>
+        </div>
+        <div class="obj miss">
+          <div class="hd"><b>Group after first tower falls</b><span>2/4 GAMES HIT · 50%</span></div>
+          <div class="bar"><i style="width:50%"></i></div>
+          <p class="why">You're farming 2+ extra waves top after tower. Rotate to dragon or herald.</p>
+        </div>
+        <div class="champ">
+          <div class="cic">CAM</div>
+          <div class="cm"><b>Camille</b><span>TOP · 47 GAMES · CONQUEROR</span></div>
+          <div class="cr"><div class="wr">62%</div><div class="kd">3.8 KDA</div></div>
+        </div>
+        <div class="champ">
+          <div class="cic">FIO</div>
+          <div class="cm"><b>Fiora</b><span>TOP · 31 GAMES · GRASP</span></div>
+          <div class="cr"><div class="wr">55%</div><div class="kd">2.9 KDA</div></div>
+        </div>
+      </div>
+      <div class="patterns" style="margin-top:12px">
+        <div class="pat good"><div class="ph">EARLY GAME</div><div class="pv">+12 CS</div><div class="pn">AVG LEAD AT 10 MIN</div></div>
+        <div class="pat bad"><div class="ph">MID GAME</div><div class="pv">22:00</div><div class="pn">FIRST GROUP · RANK AVG 18:00</div></div>
+        <div class="pat good"><div class="ph">LATE GAME</div><div class="pv">73%</div><div class="pn">DRAGON PARTICIPATION · RANK AVG 61%</div></div>
+      </div>
+    </div>
+
+    <div><div class="lab">Post-game — verdicts · breakdown · build</div>
+      <div class="verdicts">
+        <div class="ver"><div class="vk">⚔ KILLS</div><div class="vg great">GREAT</div><div class="vm">8/2/12 · KP 71%</div></div>
+        <div class="ver"><div class="vk">💰 GOLD &amp; CS</div><div class="vg good">GOOD</div><div class="vm">198 CS · 7.0/MIN</div></div>
+        <div class="ver"><div class="vk">👁 VISION</div><div class="vg avg">AVG</div><div class="vm">SCORE 24 · 3 CONTROL WARDS</div></div>
+      </div>
+      <div class="phases" style="margin-top:12px">
+        <div class="phs"><span class="pt early">1–6 · EARLY</span><p>Dominant lane — +18 CS at 10 with a solo kill at level 6.</p></div>
+        <div class="phs"><span class="pt mid">10–20 · MID</span><p>Good roam timing, but you grouped 2 minutes late after first tower.</p></div>
+        <div class="phs"><span class="pt late">25+ · LATE</span><p>Clean close — you led Baron with a 3-man Hookshot.</p></div>
+        <div class="phs"><span class="pt watch">! WATCH OUT</span><p>Both deaths were Hookshot before Thresh's Flay. Wait for the chain.</p></div>
+      </div>
+      <div class="buildrow" style="margin-top:12px">
+        <span class="bi">DORAN'S BLADE</span><span class="arr">→</span><span class="bi">SHEEN</span><span class="arr">→</span><span class="bi">TRINITY FORCE</span><span class="arr">→</span><span class="bi">STERAK'S GAGE</span><span class="arr">→</span><span class="bi next">HEXDRINKER — NEXT</span>
+      </div>
+    </div>
+
+    <div><div class="lab">Match result</div>
       <div class="samples">
-        <div class="card">
-          <div class="who"><svg viewBox="70 76 242 172" fill="var(--primary)"><use href="#mark"/></svg>SEER<span class="bdg next" style="margin-left:auto">→ NEXT BUY</span></div>
-          <p>Zhonya's second on Orianna — Karthus presses R off every reset. You're 250g short, base after this wave.</p>
-          <div class="data"><span>KARTHUS R AT 11: ~450 DMG</span><span>ZHONYA'S: 2600G</span></div>
-          <div class="game">League of Legends</div>
-        </div>
-        <div class="card">
-          <div class="who"><svg viewBox="70 76 242 172" fill="var(--primary)"><use href="#mark"/></svg>SEER<span class="bdg warn" style="margin-left:auto">△ WARNING</span></div>
-          <p>Save Updraft — Reyna has played your flank on B three rounds straight. Hold it until she peeks.</p>
-          <div class="data"><span>REYNA: 7/2 ON B SITE</span><span>HER ENTRY: 78% DRY</span></div>
-          <div class="game">Valorant</div>
-        </div>
         <div class="statrow" style="grid-column:1/-1">
           <div class="stat"><div class="v win">13–11</div><div class="k">VICTORY · SPLIT</div></div>
           <div class="stat"><div class="v">18/6/8</div><div class="k">KDA · JETT</div></div>
