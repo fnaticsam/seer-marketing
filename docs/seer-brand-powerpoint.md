@@ -143,16 +143,32 @@ shadows, no gradients.** The only "depth" is a faint coloured glow (see Glow rec
 
 ---
 
-## 5. Logo
+## 5. Logo — downloadable assets
 
-- **Mark:** the eye-and-star — two bone-white claws around a glowing green 4-point star.
-  Vector file: `public/logos/seer-mark.svg` (PowerPoint imports SVG: Insert → Pictures → this file).
-  - On dark slides: claws = **Zinc (244,244,245)**, star = **Seer Green (40,211,151)** with a green glow.
-  - Monochrome contexts: whole mark in Zinc, or whole mark in Seer Green.
+The mark is the eye-and-star: two bone-white claws around a green 4-point star. **Ready-to-use,
+correctly-coloured files are hosted below** — pick by tool:
+
+- **PowerPoint (manual, Insert → Pictures):** use the **SVG** files (crisp at any size).
+- **Generating a deck programmatically (e.g. python-pptx):** that library can't read SVG —
+  use the **PNG** files (transparent background, 2048 px wide).
+
+| Variant | When to use | Web URL | GitHub raw URL |
+|---|---|---|---|
+| **Full** (bone claws + green star) | Default — on dark slides | `seer.coach/logos/seer-mark-full.svg` · `…-full.png` | `raw.githubusercontent.com/fnaticsam/seer-marketing/main/public/logos/seer-mark-full.svg` (+ `.png`) |
+| **White** (all bone) | Mono on dark / one-colour print | `seer.coach/logos/seer-mark-white.svg` · `…-white.png` | `…/public/logos/seer-mark-white.svg` (+ `.png`) |
+| **Green** (all Seer Green) | Mono accent moments | `seer.coach/logos/seer-mark-green.svg` · `…-green.png` | `…/public/logos/seer-mark-green.svg` (+ `.png`) |
+| **Tile/icon** (mark on a dark rounded square) | App-icon / avatar contexts | `seer.coach/logos/seer-mark-icon.svg` | `…/public/logos/seer-mark-icon.svg` |
+| **Full lock-up + headline** (raster) | Title-slide hero art / social card | `seer.coach/og.png` | `…/public/og.png` |
+
+All PNGs have a **transparent background** so they drop onto any dark slide cleanly. Add a soft
+green Glow (Section 4) under the **Full** mark for the signature look.
+
 - **Wordmark:** "S E E R" in **Orbitron Bold**, heavily letter-spaced (PPT Expanded ~6–8 pt).
   Lock-up = mark + wordmark with a gap roughly equal to the mark's width.
-- **Favicon-style tile:** mark centered on a Studio-Black rounded square (`public/logos/seer-mark-icon.svg`).
-- **Don't:** recolour the star anything but green; add the old purple/pink/orange gradient; stretch; outline.
+- **Colour rule:** claws = **Zinc (244,244,245)**, star = **Seer Green (40,211,151)**. That's the
+  whole rule — the supplied "Full" files already bake it in.
+- **Don't:** recolour the star anything but green; add the old purple/pink/orange gradient;
+  stretch; add an outline; place on a light/white background.
 
 ---
 
