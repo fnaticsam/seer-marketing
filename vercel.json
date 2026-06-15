@@ -5,11 +5,20 @@
   "redirects": [
     { "source": "/designsystem", "destination": "/designsystem-final", "permanent": false }
   ],
+  "rewrites": [
+    { "source": "/brand", "destination": "/brand.md" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/brand.md",
+      "headers": [
+        { "key": "Content-Type", "value": "text/markdown; charset=utf-8" }
       ]
     }
   ]
