@@ -377,7 +377,7 @@ nav.solid{background:rgba(18,20,22,.94);border-bottom:1px solid var(--line)}
 .step p{color:var(--muted);font-size:14.5px;font-weight:300;line-height:1.6}
 .scene{width:120px;height:80px;margin-bottom:16px;display:block}
 .scene .anim{animation-play-state:paused}
-.step.in .scene .anim{animation-play-state:running}
+.step.in.motion-active .scene .anim{animation-play-state:running}
 .s-lid{transform-box:fill-box;transform-origin:center;animation:lidUp .8s ease-out .3s forwards}
 @keyframes lidUp{to{transform:scaleY(0)}}
 .s-scan{animation:sScan 2.6s ease-in-out 1.2s infinite}
@@ -904,18 +904,42 @@ const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const nav=document.getElementById('nav');
 addEventListener('scroll',()=>{nav.classList.toggle('solid',scrollY>20)},{passive:true});
 
-/* eye parallax */
-const stage=document.getElementById('eyeStage'),pupil=document.getElementById('heroStar');
-let raf=null;
-if(!REDUCED)addEventListener('mousemove',e=>{
-  if(raf)return;
-  raf=requestAnimationFrame(()=>{
-    const r=stage.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
-    const dx=Math.max(-1,Math.min(1,(e.clientX-cx)/innerWidth)),dy=Math.max(-1,Math.min(1,(e.clientY-cy)/innerHeight));
-    pupil.style.transform=`translate(${dx*9}px,${dy*7}px)`;
-    stage.style.transform=`translate(${dx*-7}px,${dy*-7}px)`;raf=null;
+/* hero motion: run only while the section and document are visible */
+(function(){
+  if(REDUCED)return;
+  const hero=document.querySelector('.hero'),stage=document.getElementById('eyeStage'),pupil=document.getElementById('heroStar'),hint=document.getElementById('hintWord');
+  const words=['META','VISION','MACRO','BUILDS','DRAFTS','TEMPO','WARDS','ROTATIONS'];
+  let visible=false,index=0,interval=null,fade=null,frame=null,pointer=null;
+  const active=()=>visible&&!document.hidden;
+  function sync(){
+    clearInterval(interval);clearTimeout(fade);cancelAnimationFrame(frame);
+    interval=null;fade=null;frame=null;pointer=null;hint.style.opacity=1;
+    if(!active())return;
+    interval=setInterval(()=>{
+      hint.style.opacity=0;
+      fade=setTimeout(()=>{
+        if(!active())return;
+        index=(index+1)%words.length;hint.textContent=words[index];hint.style.opacity=1;fade=null;
+      },400);
+    },2200);
+  }
+  const observer=new IntersectionObserver(entries=>{
+    visible=entries.some(entry=>entry.isIntersecting);sync();
   });
-},{passive:true});
+  observer.observe(hero);
+  document.addEventListener('visibilitychange',sync);
+  addEventListener('mousemove',event=>{
+    if(!active())return;
+    pointer={x:event.clientX,y:event.clientY};if(frame!==null)return;
+    frame=requestAnimationFrame(()=>{
+      frame=null;if(!active()||!pointer)return;
+      const r=stage.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+      const dx=Math.max(-1,Math.min(1,(pointer.x-cx)/innerWidth)),dy=Math.max(-1,Math.min(1,(pointer.y-cy)/innerHeight));
+      pupil.style.transform=`translate(${dx*9}px,${dy*7}px)`;
+      stage.style.transform=`translate(${dx*-7}px,${dy*-7}px)`;
+    });
+  },{passive:true});
+})();
 
 /* headline scramble */
 (function(){
@@ -931,25 +955,33 @@ if(!REDUCED)addEventListener('mousemove',e=>{
   })();
 })();
 
-/* rotating hints */
-(function(){
-  if(REDUCED)return;
-  const words=['META','VISION','MACRO','BUILDS','DRAFTS','TEMPO','WARDS','ROTATIONS'];
-  const el=document.getElementById('hintWord');let i=0;
-  setInterval(()=>{el.style.opacity=0;setTimeout(()=>{i=(i+1)%words.length;el.textContent=words[i];el.style.opacity=1;},400);},2200);
-})();
-
 /* reveal on scroll */
 const io=new IntersectionObserver((es)=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}}),{threshold:.12});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 
-/* card cursor-spotlight */
+/* card cursor-spotlight and visible step animations */
 if(!REDUCED){
-  let litEl=null;
-  document.addEventListener('mousemove',e=>{
-    const c=e.target.closest?e.target.closest('.card,.step'):null;
-    if(litEl&&litEl!==c){litEl.classList.remove('lit');litEl=null;}
-    if(c){const r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px');c.classList.add('lit');litEl=c;}
+  let litEl=null,frame=null,pointer=null;
+  const visibleSteps=new Set();
+  const steps=new IntersectionObserver(entries=>entries.forEach(entry=>{
+    if(entry.isIntersecting)visibleSteps.add(entry.target);else visibleSteps.delete(entry.target);
+    entry.target.classList.toggle('motion-active',entry.isIntersecting&&!document.hidden);
+  }));
+  document.querySelectorAll('.step').forEach(step=>steps.observe(step));
+  document.addEventListener('visibilitychange',()=>{
+    visibleSteps.forEach(step=>step.classList.toggle('motion-active',!document.hidden));
+    if(document.hidden){cancelAnimationFrame(frame);frame=null;pointer=null;if(litEl)litEl.classList.remove('lit');litEl=null;}
+  });
+  document.addEventListener('mousemove',event=>{
+    if(document.hidden)return;
+    pointer={card:event.target.closest?event.target.closest('.card,.step'):null,x:event.clientX,y:event.clientY};
+    if(frame!==null)return;
+    frame=requestAnimationFrame(()=>{
+      frame=null;if(document.hidden||!pointer)return;
+      const c=pointer.card;
+      if(litEl&&litEl!==c){litEl.classList.remove('lit');litEl=null;}
+      if(c){const r=c.getBoundingClientRect();c.style.setProperty('--mx',(pointer.x-r.left)+'px');c.style.setProperty('--my',(pointer.y-r.top)+'px');c.classList.add('lit');litEl=c;}
+    });
   },{passive:true});
 }
 
