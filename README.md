@@ -26,8 +26,10 @@ Open the Supabase dashboard for `seer-marketing` and view the `waitlist` table, 
 
 ## Run locally
 ```
-npx serve public -l 4173
+python3 -m http.server 4173 --directory public
 ```
+Open `http://localhost:4173`. The Python standard-library server needs no package installation.
+
 Note: scroll-reveal `.rv` elements are invisible until in view — when taking full-page screenshots, add the `in` class first. The demo only autoplays once its shell is ≥35% visible.
 
 ## Deploy
