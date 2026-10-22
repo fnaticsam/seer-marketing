@@ -139,6 +139,10 @@ nav.solid{background:rgba(18,20,22,.94);border-bottom:1px solid var(--line)}
 .note .count{color:var(--pink-soft)}
 .note.err{color:var(--orange-soft)}
 .note.ok{color:var(--pink-soft)}
+.data-note{margin-top:8px;font-size:12px;color:var(--muted)}
+.data-note a{text-decoration:underline;text-underline-offset:3px}
+.share-status{min-height:1.5em}
+.share-fallback{width:min(340px,85vw);padding:10px;color:var(--ink);background:var(--field);border:1px solid var(--line-strong);border-radius:6px}
 
 /* ── demo (Seer in action) ── */
 .demo-band .lead{margin-left:auto;margin-right:auto}
@@ -494,11 +498,12 @@ s.orb{position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;pointer
   <div class="gate-box">
     <svg class="gate-eye" viewBox="70 76 242 172" fill="#ECE8E1" aria-hidden="true"><use href="#markNew"/></svg>
     <p class="gate-tag">The eye is shut</p>
-    <form class="gate-form" novalidate>
-      <input type="password" name="gate" placeholder="speak the word" autocomplete="off" aria-label="Password" />
-      <button type="submit" class="btn btn-primary"><s class="orb"></s>Enter</button>
+    <form class="gate-form" method="post" novalidate>
+      <input type="password" disabled placeholder="speak the word" autocomplete="off" aria-label="Password" />
+      <button type="submit" class="btn btn-primary" disabled><s class="orb"></s>Enter</button>
     </form>
     <p class="gate-note" role="status" aria-live="polite"></p>
+    <noscript><p class="gate-note">Enable JavaScript to enter and join the waitlist.</p></noscript>
   </div>
 </div>
 <div class="amb"></div>
@@ -534,11 +539,12 @@ s.orb{position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;pointer
     <div class="hints" aria-hidden="true"><span class="sep">[</span><span class="w" id="hintWord">META</span><span class="sep">]</span></div>
 
     <div class="wl" id="wlHero" data-source="hero">
-      <form class="wl-form" novalidate>
-        <input type="email" name="email" placeholder="your@email.com" autocomplete="email" required aria-label="Email address" aria-describedby="note-hero" />
-        <button type="submit" class="btn btn-primary"><s class="orb"></s>Claim your spot</button>
+      <form class="wl-form" method="post" novalidate>
+        <input type="email" disabled placeholder="your@email.com" autocomplete="email" required aria-label="Email address" aria-describedby="note-hero" />
+        <button type="submit" class="btn btn-primary" disabled><s class="orb"></s>Claim your spot</button>
       </form>
       <p class="note" id="note-hero" role="status" aria-live="polite">Get gud first. No spam, no ban risk — one ping when the eye opens. <span class="count"></span></p>
+      <p class="data-note"><a href="#waitlist-data">How we use signup data</a></p>
     </div>
     <div class="success" id="successHero" tabindex="-1">
       <div class="ch"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#28D397" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
@@ -549,6 +555,8 @@ s.orb{position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;pointer
         <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=I%20just%20joined%20the%20SEER%20waitlist%20%E2%80%94%20the%20AI%20coach%20for%20League.%20It%20sees%20the%20game%20before%20you%20do.&url=https%3A%2F%2Fseer.coach"><s class="orb"></s>Post it</a>
       </div>
       <p class="share-sub">Drag your duo out of hardstuck too.</p>
+      <p class="share-status" role="status" aria-live="polite"></p>
+      <input class="share-fallback" type="text" readonly hidden aria-label="Invite link" />
     </div>
     <a class="btn btn-ghost demo-link" href="#demo"><s class="orb"></s>▶ Watch Seer cook</a>
   </div></section>
@@ -777,11 +785,12 @@ s.orb{position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;pointer
   <section class="midjoin center"><div class="wrap center">
     <h3 class="rv">Seen enough?</h3>
     <div class="wl rv" id="wlMid" data-source="mid">
-      <form class="wl-form" novalidate>
-        <input type="email" name="email" placeholder="your@email.com" autocomplete="email" required aria-label="Email address" aria-describedby="note-mid" />
-        <button type="submit" class="btn btn-primary"><s class="orb"></s>Claim your spot</button>
+      <form class="wl-form" method="post" novalidate>
+        <input type="email" disabled placeholder="your@email.com" autocomplete="email" required aria-label="Email address" aria-describedby="note-mid" />
+        <button type="submit" class="btn btn-primary" disabled><s class="orb"></s>Claim your spot</button>
       </form>
       <p class="note" id="note-mid" role="status" aria-live="polite">No spam. One ping when Seer opens its eyes. <span class="count"></span></p>
+      <p class="data-note"><a href="#waitlist-data">How we use signup data</a></p>
     </div>
     <div class="success" id="successMid" tabindex="-1">
       <div class="ch"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#28D397" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
@@ -792,6 +801,8 @@ s.orb{position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;pointer
         <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=I%20just%20joined%20the%20SEER%20waitlist%20%E2%80%94%20the%20AI%20coach%20for%20League.%20It%20sees%20the%20game%20before%20you%20do.&url=https%3A%2F%2Fseer.coach"><s class="orb"></s>Post it</a>
       </div>
       <p class="share-sub">Drag your duo out of hardstuck too.</p>
+      <p class="share-status" role="status" aria-live="polite"></p>
+      <input class="share-fallback" type="text" readonly hidden aria-label="Invite link" />
     </div>
   </div></section>
 
@@ -827,6 +838,7 @@ s.orb{position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;pointer
       <details class="fq"><summary>Which games?<svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#28D397" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></summary><p class="ans">League of Legends first. More titles after — one brain, every game.</p></details>
       <details class="fq"><summary>What will it cost?<svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#28D397" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></summary><p class="ans">Pricing isn't final. Waitlist members hear first and get the best deal we'll ever offer. That's not a tactic, it's a bribe.</p></details>
       <details class="fq"><summary>What does Seer actually see?<svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#28D397" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></summary><p class="ans">Your Riot account match history and live game data through Overwolf's approved APIs. Nothing else. It judges your gameplay, not your DMs.</p></details>
+      <details class="fq" id="waitlist-data"><summary>What does the signup form send?</summary><p class="ans">Your email, where you joined on this page, and the referring site or our duo-invite tag. Referring URL paths and query strings, and your browser details, are not included in the signup record. Your email is for the launch notification described here.</p></details>
     </div>
     <a class="fq-exit rv" href="#join">Claim your spot →</a>
   </div></section>
@@ -846,11 +858,12 @@ s.orb{position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;pointer
       <p class="sub">Join the waitlist. When Seer opens its eyes, you're at the front of the queue. <span class="count2" id="ctaCount"></span></p>
     </div>
     <div class="wl rv" id="wlCta" data-source="cta">
-      <form class="wl-form" novalidate>
-        <input type="email" name="email" placeholder="your@email.com" autocomplete="email" required aria-label="Email address" aria-describedby="note-cta" />
-        <button type="submit" class="btn btn-primary"><s class="orb"></s>Claim your spot</button>
+      <form class="wl-form" method="post" novalidate>
+        <input type="email" disabled placeholder="your@email.com" autocomplete="email" required aria-label="Email address" aria-describedby="note-cta" />
+        <button type="submit" class="btn btn-primary" disabled><s class="orb"></s>Claim your spot</button>
       </form>
       <p class="note" id="note-cta" role="status" aria-live="polite">No spam. No ban risk. One ping when we go live. <span class="count"></span></p>
+      <p class="data-note"><a href="#waitlist-data">How we use signup data</a></p>
     </div>
     <div class="success" id="successCta" tabindex="-1">
       <div class="ch"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#28D397" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
@@ -861,6 +874,8 @@ s.orb{position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;pointer
         <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=I%20just%20joined%20the%20SEER%20waitlist%20%E2%80%94%20the%20AI%20coach%20for%20League.%20It%20sees%20the%20game%20before%20you%20do.&url=https%3A%2F%2Fseer.coach"><s class="orb"></s>Post it</a>
       </div>
       <p class="share-sub">Drag your duo out of hardstuck too.</p>
+      <p class="share-status" role="status" aria-live="polite"></p>
+      <input class="share-fallback" type="text" readonly hidden aria-label="Invite link" />
     </div>
   </div></section>
 
@@ -876,18 +891,123 @@ const SUPABASE_URL = "https://ldhrhefczaosqsfcfxbo.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_7QFZwpJxR4HjRFl3EFqOcw_CF1PN2yW";
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+/* signup requests: deadline covers response headers and body */
+const REQUEST_TIMEOUT_MS=10000;
+const INVITE_URL='https://seer.coach/?ref=duo';
+async function requestWithDeadline(url,options,readResponse){
+  const controller=new AbortController();let timer;
+  try{
+    return await Promise.race([
+      fetch(url,{...options,signal:controller.signal}).then(readResponse),
+      new Promise((resolve,reject)=>{
+        timer=setTimeout(()=>{
+          const error=new Error('Request deadline exceeded');error.name='TimeoutError';
+          reject(error);controller.abort();
+        },REQUEST_TIMEOUT_MS);
+      })
+    ]);
+  }finally{clearTimeout(timer);}
+}
+function signupReferrer(){
+  // Preserve the existing duo share category without storing arbitrary URL data.
+  if(new URL(location.href).searchParams.get('ref')==='duo')return INVITE_URL;
+  try{
+    const referrer=new URL(document.referrer);
+    return ['https:','http:'].includes(referrer.protocol)?referrer.origin:null;
+  }catch(e){return null;}
+}
+function isEmailDuplicate(error){
+  return error?.code==='23505'&&/^Key \((?:email|lower\(email\))\)=/.test(error.details||'');
+}
+
+/* live count */
+async function loadCount(){
+  if(SUPABASE_URL.startsWith('__'))return;
+  try{
+    const n=await requestWithDeadline(`${SUPABASE_URL}/rest/v1/rpc/get_waitlist_count`,{method:'POST',headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY,'Content-Type':'application/json'},body:'{}'},async r=>r.ok?Number(await r.json()):0);
+    if(Number.isSafeInteger(n)&&n>=25){
+      document.querySelectorAll('.note .count').forEach(c=>c.textContent=`${n.toLocaleString()} already seeing.`);
+      const cc=document.getElementById('ctaCount');if(cc)cc.textContent=`${n.toLocaleString()} players already seeing.`;
+    }
+  }catch(e){}
+}
+
+/* waitlist submit (all forms); initialized before optional page effects */
+document.querySelectorAll('.share-copy').forEach(btn=>{
+  let pending=false;
+  btn.addEventListener('click',async()=>{
+    if(pending)return;pending=true;btn.disabled=true;
+    const success=btn.closest('.success'),status=success.querySelector('.share-status'),fallback=success.querySelector('.share-fallback');
+    try{
+      await navigator.clipboard.writeText(INVITE_URL);
+      status.textContent='Invite link copied.';fallback.hidden=true;
+    }catch(e){
+      status.textContent='Copy this invite link to share it.';
+      fallback.value=INVITE_URL;fallback.hidden=false;fallback.focus();fallback.select();
+    }finally{pending=false;btn.disabled=false;}
+  });
+});
+function wire(boxId,successId){
+  const box=document.getElementById(boxId),success=document.getElementById(successId);
+  const form=box.querySelector('form'),input=box.querySelector('input'),note=box.querySelector('.note'),btn=box.querySelector('button');
+  let pending=false,submitted=false;
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();if(pending||submitted)return;
+    const email=input.value.trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){note.className='note err';note.textContent='That email looks off. Try again.';input.setAttribute('aria-invalid','true');return;}
+    input.removeAttribute('aria-invalid');pending=true;
+    note.className='note';btn.disabled=true;input.disabled=true;form.setAttribute('aria-busy','true');
+    const orig=btn.textContent;btn.textContent='Sealing…';
+    function done(msg){
+      submitted=true;
+      success.querySelector('p').textContent=msg||success.querySelector('p').textContent;
+      box.classList.add('hide');success.classList.add('show');success.focus();
+      const eye=document.getElementById('ctaEye');
+      if(boxId==='wlCta'&&!REDUCED&&eye){eye.classList.add('blink');setTimeout(()=>eye.classList.remove('blink'),600);}
+      loadCount();
+    }
+    try{
+      if(SUPABASE_URL.startsWith('__'))throw new Error('Signup unavailable');
+      const outcome=await requestWithDeadline(`${SUPABASE_URL}/rest/v1/waitlist`,{method:'POST',headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({email,source:box.dataset.source||'cta',referrer:signupReferrer(),user_agent:''})},async res=>{
+        if(res.ok)return 'registered';
+        if(res.status===409){
+          let error;try{error=await res.json();}catch(e){}
+          if(isEmailDuplicate(error))return 'existing';
+        }
+        const error=new Error('Signup not confirmed');error.status=res.status;throw error;
+      });
+      done(outcome==='existing'?"You're already on the list. The Seer doesn't forget.":undefined);
+    }catch(err){
+      note.className='note err';
+      note.textContent=err.name==='TimeoutError'?'That took too long. Please try again.':err.status===429?'Too many attempts. Wait a moment, then try again.':"We couldn't confirm your signup. Please try again.";
+    }finally{
+      pending=false;btn.disabled=false;input.disabled=false;btn.textContent=orig;form.removeAttribute('aria-busy');
+    }
+  });
+  // Native controls stay unavailable until their submit handler is installed.
+  input.disabled=false;btn.disabled=false;
+}
+wire('wlHero','successHero');
+wire('wlMid','successMid');
+wire('wlCta','successCta');
+loadCount();
+
 /* password gate */
 (function(){
   const gate=document.getElementById('gate');
   const KEY='seer-gate', HASH='076a89c23179cedfc61171fe400ecf01fb76b9a48a68fb82dd0cd688d684d900';
-  if(localStorage.getItem(KEY)==='ok'){gate.remove();return;}
+  let remembered=false;
+  try{remembered=localStorage.getItem(KEY)==='ok';}catch(e){}
+  if(remembered){gate.remove();return;}
   document.body.classList.add('gated');scrollTo(0,0);
   const box=gate.querySelector('.gate-box'),form=gate.querySelector('form'),input=gate.querySelector('input'),note=gate.querySelector('.gate-note');
   async function sha(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');}
   form.addEventListener('submit',async e=>{
     e.preventDefault();
+    const button=form.querySelector('button');button.disabled=true;
+    try{
     if(await sha(input.value.trim().toLowerCase())===HASH){
-      localStorage.setItem(KEY,'ok');
+      try{localStorage.setItem(KEY,'ok');}catch(e){}
       document.body.classList.remove('gated');
       gate.classList.add('off');
       setTimeout(()=>gate.remove(),600);
@@ -896,7 +1016,10 @@ const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
       box.classList.add('shake');setTimeout(()=>box.classList.remove('shake'),450);
       input.select();
     }
+    }catch(e){note.textContent='Unable to check access. Please reload and try again.';}
+    finally{button.disabled=false;}
   });
+  input.disabled=false;form.querySelector('button').disabled=false;
   input.focus();
 })();
 
@@ -1171,53 +1294,6 @@ else{
   }
 })();
 
-/* live count */
-async function loadCount(){
-  if(SUPABASE_URL.startsWith('__'))return;
-  try{
-    const r=await fetch(`${SUPABASE_URL}/rest/v1/rpc/get_waitlist_count`,{method:'POST',headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY,'Content-Type':'application/json'},body:'{}'});
-    if(!r.ok)return;const n=Number(await r.json())||0;
-    if(n>=25){
-      document.querySelectorAll('.note .count').forEach(c=>c.textContent=`${n.toLocaleString()} already seeing.`);
-      const cc=document.getElementById('ctaCount');if(cc)cc.textContent=`${n.toLocaleString()} players already seeing.`;
-    }
-  }catch(e){}
-}
-loadCount();
-
-/* waitlist submit (all forms) */
-document.querySelectorAll('.share-copy').forEach(btn=>btn.addEventListener('click',async()=>{
-  try{await navigator.clipboard.writeText('https://seer.coach/?ref=duo');}catch(e){}
-  const orig=btn.textContent;btn.textContent='Copied.';
-  setTimeout(()=>{btn.textContent=orig;},2000);
-}));
-function wire(boxId,successId){
-  const box=document.getElementById(boxId),success=document.getElementById(successId);
-  const form=box.querySelector('form'),input=box.querySelector('input'),note=box.querySelector('.note'),btn=box.querySelector('button');
-  form.addEventListener('submit',async e=>{
-    e.preventDefault();const email=input.value.trim();
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){note.className='note err';note.textContent='That email looks off. Try again.';input.setAttribute('aria-invalid','true');return;}
-    input.removeAttribute('aria-invalid');
-    note.className='note';btn.disabled=true;const orig=btn.textContent;btn.textContent='Sealing…';
-    function done(msg){
-      success.querySelector('p').textContent=msg||success.querySelector('p').textContent;
-      box.classList.add('hide');success.classList.add('show');success.focus();
-      if(boxId==='wlCta'&&!REDUCED){ctaEye.classList.add('blink');setTimeout(()=>ctaEye.classList.remove('blink'),600);}
-      document.querySelectorAll('.wl').forEach(w=>{if(w!==box){const n=w.querySelector('.note');if(n&&!n.classList.contains('err'))n.textContent="You're already in — see you at launch.";}});
-      loadCount();
-    }
-    if(SUPABASE_URL.startsWith('__')){setTimeout(()=>done(),500);return;}
-    try{
-      const res=await fetch(`${SUPABASE_URL}/rest/v1/waitlist`,{method:'POST',headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({email,source:box.dataset.source||'cta',referrer:document.referrer||null,user_agent:navigator.userAgent})});
-      if(res.ok){done();return;}
-      if(res.status===409){done("You're already on the list. The Seer doesn't forget.");return;}
-      throw new Error(res.status);
-    }catch(err){btn.disabled=false;btn.textContent=orig;note.className='note err';note.textContent='The veil flickered. Try once more.';}
-  });
-}
-wire('wlHero','successHero');
-wire('wlMid','successMid');
-wire('wlCta','successCta');
 </script>
 </body>
 </html>
