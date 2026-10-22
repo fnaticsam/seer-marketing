@@ -346,7 +346,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><g id="mark">@@MARKPATHS@@</g></defs></svg>
 
-<div class="gate" id="gate"><form><input type="password" placeholder="speak the word" aria-label="Password" /><button>Enter</button></form></div>
+<div class="gate" id="gate"><div><form method="post" novalidate><input type="password" disabled placeholder="speak the word" aria-label="Password" /><button type="submit" disabled>Enter</button></form><p class="gate-note" role="status"></p><noscript><p>Enable JavaScript to enter this preview.</p></noscript></div></div>
 
 <header class="dshead"><div class="wrap">
   <div class="top">
@@ -549,14 +549,23 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
 (function(){
   const gate=document.getElementById('gate');
   const KEY='seer-gate', HASH='076a89c23179cedfc61171fe400ecf01fb76b9a48a68fb82dd0cd688d684d900';
-  if(localStorage.getItem(KEY)==='ok'){gate.classList.add('off');return;}
+  let remembered=false;
+  try{remembered=localStorage.getItem(KEY)==='ok';}catch(e){}
+  if(remembered){gate.classList.add('off');return;}
   const form=gate.querySelector('form'),input=gate.querySelector('input');
   async function sha(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');}
   form.addEventListener('submit',async e=>{
-    e.preventDefault();
-    if(await sha(input.value.trim().toLowerCase())===HASH){localStorage.setItem(KEY,'ok');gate.classList.add('off');}
-    else input.select();
+    e.preventDefault();gate.querySelector('.gate-note').textContent='';
+    const button=form.querySelector('button');button.disabled=true;
+    try{
+      if(await sha(input.value.trim().toLowerCase())===HASH){
+        try{localStorage.setItem(KEY,'ok');}catch(e){}
+        gate.classList.add('off');
+      }else input.select();
+    }catch(e){gate.querySelector('.gate-note').textContent='Unable to check access. Please reload and try again.';}
+    finally{button.disabled=false;}
   });
+  input.disabled=false;form.querySelector('button').disabled=false;
   input.focus();
 })();
 </script>

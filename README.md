@@ -16,7 +16,9 @@ Nav (Demo/Why/Product/How + CTA) → Hero (headline, waitlist form #1, "Watch Se
 ## Waitlist backend (Supabase)
 - Project: `seer-marketing` (org: Sams personal, region: eu-west-2)
 - Table: `public.waitlist` (email, source, referrer, user_agent, created_at). `source` is `hero` / `mid` / `cta` via `data-source`.
-- Emails are stored on submit. Duplicates are blocked (case-insensitive) and treated as "already on the list" (409).
+- Emails are stored on submit. The database is expected to enforce case-insensitive uniqueness. The client confirms a duplicate only for a 409 / `23505` response whose details identify `email` or `lower(email)`; other conflicts remain recoverable failures. Schema and error-contract verification is required before changing database constraints.
+- Signup requests have a 10-second deadline and allow manual retry. No automatic resubmission occurs; a timed-out request may already have committed.
+- `referrer` stores only an HTTP(S) origin, or `https://seer.coach/?ref=duo` for the existing duo share link. Arbitrary URL paths/query parameters are discarded. `user_agent` is sent as an empty string to preserve the existing string-column contract without collecting browser details. These changes do not add database columns.
 - Security: anon can INSERT only, never read. A live count is exposed through `get_waitlist_count()` (count only) and is displayed only once 25+ people have joined (honest, not seeded).
 
 Credentials are wired into `index.html` (project URL + publishable key). The publishable key is safe to ship in a public site.
@@ -29,6 +31,13 @@ Open the Supabase dashboard for `seer-marketing` and view the `waitlist` table, 
 npx serve public -l 4173
 ```
 Note: scroll-reveal `.rv` elements are invisible until in view — when taking full-page screenshots, add the `in` class first. The demo only autoplays once its shell is ≥35% visible.
+
+## Checks
+Run the offline regression suite with Node 24 and Python 3 available:
+```
+node --test tests/*.test.cjs
+```
+No package installation is needed. Requests use synthetic fixtures; generated-page checks run in temporary directories. The checks do not inspect the live database or send notifications.
 
 ## Deploy
 Static site, deploy as-is:
