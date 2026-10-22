@@ -143,6 +143,9 @@ nav.solid{background:rgba(18,20,22,.94);border-bottom:1px solid var(--line)}
 /* ── demo (Seer in action) ── */
 .demo-band .lead{margin-left:auto;margin-right:auto}
 .demo-shell{width:100%;max-width:980px;margin-top:46px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-align:left}
+.demo-controls{display:flex;justify-content:flex-end;padding:10px 14px;border-bottom:1px solid var(--line-soft)}
+.demo-controls[hidden]{display:none}
+.demo-controls .btn{font-size:12px;padding:7px 12px}
 .demo-tabs{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line-soft)}
 .demo-tab{position:relative;display:flex;align-items:center;justify-content:center;gap:9px;padding:15px 8px;background:transparent;border:0;cursor:pointer;font-family:'JetBrains Mono',monospace;font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);transition:color .25s}
 .demo-tab:hover{color:var(--muted)}
@@ -152,7 +155,9 @@ nav.solid{background:rgba(18,20,22,.94);border-bottom:1px solid var(--line)}
 .demo-tab::before{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--pink);box-shadow:0 0 8px rgba(40,211,151,.5);opacity:0;transform:scaleX(1)}
 .demo-tab[aria-selected="true"]::before{opacity:.25}
 .demo-tab::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--pink);box-shadow:0 0 8px rgba(40,211,151,.5);transform:scaleX(0);transform-origin:left}
-.demo-tab.playing::after{transform:scaleX(1);transition-property:transform;transition-timing-function:linear}
+.demo-tab.playing::after{animation:demoProgress var(--duration,15s) linear both}
+.demo-shell.paused .demo-tab.playing::after{animation-play-state:paused}
+@keyframes demoProgress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 .demo-tab .short{display:none}
 .demo-stage{min-height:430px}
 .demo-panel{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);min-height:430px}
@@ -285,6 +290,7 @@ nav.solid{background:rgba(18,20,22,.94);border-bottom:1px solid var(--line)}
 .d-flags.in .d-flag:nth-child(2){transition-delay:.3s}
 .demo-cta{display:inline-block;margin-top:7px;font-family:'Inter',sans-serif;font-weight:600;font-size:13px;color:var(--pink);opacity:0;transition:opacity .5s}
 .demo-cta.in{opacity:1}
+.demo-cta[hidden]{display:none}
 .demo-note{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--faint);text-align:center}
 .demo-exit{margin-top:38px;display:flex;flex-direction:column;align-items:center;gap:14px}
 .demo-exit .row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
@@ -481,7 +487,7 @@ s.orb{position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;pointer
 .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
 .rv.in{opacity:1;transform:none}
 
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.cta-eye .lid{transform:scaleY(0)}#dChamps .d-tile{opacity:1}.d-vic.stamp{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.cta-eye .lid{transform:scaleY(0)}#dChamps .d-tile{opacity:1}.d-vic.stamp{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -568,15 +574,16 @@ s.orb{position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;pointer
     </div>
     <p class="sr-only">In this demo: Seer opens on your profile — a 3-game streak, your champion pool, and tonight's focus objectives — then detects your lobby. During draft it bans Viego off your 1-win-4-loss record against him, warns that Jinx hyperscales, and recommends locking your 62% Camille into Sett while flagging that Karthus jungle outscales your comp. During the live game it spots the enemy jungler on a bot-side ward, tracks your 1.2k gold lead, calls a Zhonya's rush for Orianna and a Hexdrinker for you, then warns you off splitting while Nautilus and Karthus are unseen. Post-game it grades early, mid and late phases of your 8/2/12 win, shows both deaths were Hookshot overcommits, and sets flash-Hookshot practice plus control wards as the next focus.</p>
     <div class="demo-shell rv" id="demoShell" aria-label="Seer product demo">
+      <div class="demo-controls" id="demoControls" hidden><button type="button" class="btn btn-ghost" id="demoPlayback" aria-controls="demoStage">Pause demo</button></div>
       <div class="demo-tabs" role="tablist" aria-label="Game phases">
         <button class="demo-tab" role="tab" id="tab-profile" aria-controls="panel-profile" aria-selected="true"><span class="n">01</span><span class="lbl">Profile</span></button>
         <button class="demo-tab" role="tab" id="tab-draft" aria-controls="panel-draft" aria-selected="false" tabindex="-1"><span class="n">02</span><span class="lbl">Draft</span></button>
         <button class="demo-tab" role="tab" id="tab-live" aria-controls="panel-live" aria-selected="false" tabindex="-1"><span class="n">03</span><span class="lbl"><span class="full">Live game</span><span class="short">Live</span></span></button>
         <button class="demo-tab" role="tab" id="tab-post" aria-controls="panel-post" aria-selected="false" tabindex="-1"><span class="n">04</span><span class="lbl"><span class="full">Post-game</span><span class="short">Post</span></span></button>
       </div>
-      <div class="demo-stage" aria-hidden="true">
+      <div class="demo-stage" id="demoStage">
 
-        <div class="demo-panel profile" id="panel-profile" role="tabpanel" aria-labelledby="tab-profile">
+        <div class="demo-panel profile" id="panel-profile" role="tabpanel" tabindex="0" aria-labelledby="tab-profile">
           <div class="dg">
             <div class="d-head"><span>HARDSTUCK#EUW</span><span class="d-timer">GOLD II · 67 LP</span></div>
             <div class="d-lp" id="dLp"><i></i></div>
@@ -602,7 +609,7 @@ s.orb{position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;pointer
           <div class="dc" aria-live="off"></div>
         </div>
 
-        <div class="demo-panel three" id="panel-draft" role="tabpanel" aria-labelledby="tab-draft" hidden>
+        <div class="demo-panel three" id="panel-draft" role="tabpanel" tabindex="0" aria-labelledby="tab-draft" hidden>
           <div class="dg-side blue">
             <span class="d-side">YOUR TEAM</span>
             <div class="d-tile empty" id="dYou" title="Your pick — top"><span class="mono">?</span><span class="nm">YOU</span></div>
@@ -635,7 +642,7 @@ s.orb{position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;pointer
           </div>
         </div>
 
-        <div class="demo-panel" id="panel-live" role="tabpanel" aria-labelledby="tab-live" hidden>
+        <div class="demo-panel" id="panel-live" role="tabpanel" tabindex="0" aria-labelledby="tab-live" hidden>
           <div class="dg">
             <div class="d-bar"><span id="dClock">9:40</span><span>CAMILLE 2/0/1</span><span class="d-gold" id="dGold">+0.6K</span></div>
             <svg class="d-map" id="dMap" viewBox="0 0 100 100" aria-hidden="true">
@@ -664,7 +671,7 @@ s.orb{position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;pointer
           <div class="dc" aria-live="off"></div>
         </div>
 
-        <div class="demo-panel" id="panel-post" role="tabpanel" aria-labelledby="tab-post" hidden>
+        <div class="demo-panel" id="panel-post" role="tabpanel" tabindex="0" aria-labelledby="tab-post" hidden>
           <div class="dg">
             <div class="d-result">
               <span class="d-vic" id="dVic">VICTORY</span>
@@ -973,7 +980,28 @@ else{
   const panels=[...shell.querySelectorAll('[role=tabpanel]')];
   const feeds=panels.map(p=>p.querySelector('.dc'));
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-  let run=0,paused=false,cur=0,timers=[];
+  let run=0,paused=false,cur=0,timers=[],visible=false,running=false;
+  let pauseStarted=0,pausedFor=0;
+  const playback=document.getElementById('demoPlayback');
+  // Scene deadlines use active time, so a long pause never skips ahead.
+  function activeNow(){return (paused?pauseStarted:performance.now())-pausedFor;}
+  function setPaused(next){
+    if(next===paused)return;
+    const now=performance.now();
+    if(next)pauseStarted=now;
+    else pausedFor+=now-pauseStarted;
+    paused=next;
+    shell.classList.toggle('paused',paused);
+    playback.textContent=paused?'Resume demo':'Pause demo';
+  }
+  async function waitUntil(deadline,me){
+    while(me===run){
+      const remaining=deadline-activeNow();
+      if(!paused&&remaining<=0)return true;
+      await sleep(paused?100:Math.min(100,Math.max(1,remaining)));
+    }
+    return false;
+  }
 
   const SCRIPTS=[
     {total:15000,ev:[
@@ -1040,10 +1068,9 @@ else{
   async function stream(b,text,me){
     const p=b.querySelector('p');
     for(const w of text.split(' ')){
-      while(paused&&me===run)await sleep(150);
-      if(me!==run)return;
+      if(!await waitUntil(activeNow(),me))return;
       p.textContent+=(p.textContent?' ':'')+w;
-      await sleep(46+Math.random()*40);
+      if(!await waitUntil(activeNow()+46+Math.random()*40,me))return;
     }
     b.classList.remove('typing');
   }
@@ -1077,7 +1104,7 @@ else{
       $('#dVic').classList.remove('stamp');
       $('#dGrades').classList.remove('fill');
       $('#dFlags').classList.remove('in');
-      const c=document.getElementById('demoJoin');if(c)c.classList.remove('in');
+      const c=document.getElementById('demoJoin');if(c){c.hidden=true;c.classList.remove('in');}
     }
   }
   function startTick(i,me){
@@ -1087,21 +1114,18 @@ else{
   }
   function setTabs(idx){
     cur=idx;
-    tabs.forEach((t,i)=>{t.setAttribute('aria-selected',i===idx?'true':'false');t.tabIndex=i===idx?0:-1;t.classList.remove('playing');t.style.transitionDuration='0s';});
+    tabs.forEach((t,i)=>{t.setAttribute('aria-selected',i===idx?'true':'false');t.tabIndex=i===idx?0:-1;t.classList.remove('playing');});
     panels.forEach((p,i)=>{p.hidden=i!==idx;});
   }
   async function play(idx){
-    const me=++run;
+    const me=++run;running=true;
     setTabs(idx);resetPanel(idx);
     const S=SCRIPTS[idx];
-    const tb=tabs[idx];void tb.offsetWidth;tb.style.transitionDuration=S.total+'ms';tb.classList.add('playing');
+    const tb=tabs[idx];void tb.offsetWidth;tb.style.setProperty('--duration',S.total+'ms');tb.classList.add('playing');
     startTick(idx,me);
-    const t0=performance.now();let chain=Promise.resolve();
+    const t0=activeNow();let chain=Promise.resolve();
     for(const ev of S.ev){
-      const wait=ev.t-(performance.now()-t0);
-      if(wait>0)await sleep(wait);
-      while(paused&&me===run)await sleep(150);
-      if(me!==run)return;
+      if(!await waitUntil(t0+ev.t,me))return;
       if(ev.fx)FX[ev.fx]();
       if(ev.text){
         chain=chain.then(async()=>{
@@ -1110,15 +1134,12 @@ else{
           await stream(b,ev.text,me);
           if(me!==run)return;
           addData(b,ev.data);
-          if(ev.cta){const c=document.getElementById('demoJoin');if(c)c.classList.add('in');}
+          if(ev.cta){const c=document.getElementById('demoJoin');if(c){c.hidden=false;c.classList.add('in');}}
         });
       }
     }
     await chain;
-    const rem=S.total-(performance.now()-t0);
-    if(rem>0)await sleep(rem);
-    while(paused&&me===run)await sleep(150);
-    if(me!==run)return;
+    if(!await waitUntil(t0+S.total,me))return;
     play((idx+1)%SCRIPTS.length);
   }
   function renderFinal(i){
@@ -1130,21 +1151,26 @@ else{
         b.classList.remove('typing');b.classList.add('in');
         b.querySelector('p').textContent=ev.text;
         addData(b,ev.data);
-        if(ev.cta){const c=document.getElementById('demoJoin');if(c)c.classList.add('in');}
+        if(ev.cta){const c=document.getElementById('demoJoin');if(c){c.hidden=false;c.classList.add('in');}}
       }
     }
   }
   // final post-game CTA link lives inside the feed area, appended once
   const joinLink=document.createElement('a');
-  joinLink.id='demoJoin';joinLink.className='demo-cta';joinLink.href='#join';joinLink.textContent='Join the waitlist →';
+  joinLink.id='demoJoin';joinLink.hidden=true;joinLink.className='demo-cta';joinLink.href='#join';joinLink.textContent='Join the waitlist →';
   feeds[3].after(joinLink);
   feeds[3].parentElement.style.position='relative';
   joinLink.style.cssText+=';position:absolute;right:22px;bottom:10px';
 
+  function selectPanel(i){
+    if(REDUCED)setTabs(i);
+    else{setPaused(false);play(i);}
+  }
   tabs.forEach((t,i)=>{
-    t.addEventListener('click',()=>{REDUCED?setTabs(i):play(i);});
+    t.addEventListener('click',()=>selectPanel(i));
     t.addEventListener('keydown',e=>{
       if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;
+      e.preventDefault();
       const n=(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length;
       tabs[n].focus();tabs[n].click();
     });
@@ -1152,22 +1178,24 @@ else{
   document.querySelectorAll('.d-jump').forEach(j=>j.addEventListener('click',()=>{
     const idx={profile:0,draft:1,live:2,post:3}[j.dataset.jump]||0;
     document.getElementById('demo').scrollIntoView({behavior:REDUCED?'auto':'smooth'});
-    REDUCED?setTabs(idx):play(idx);
+    selectPanel(idx);
   }));
 
   if(REDUCED){
     [0,1,2,3].forEach(renderFinal);
     setTabs(0);
   }else{
+    document.getElementById('demoControls').hidden=false;
+    playback.addEventListener('click',()=>{
+      setPaused(!paused);
+      if(!paused&&!running&&visible)play(cur);
+    });
     const ioDemo=new IntersectionObserver(es=>es.forEach(en=>{
-      if(en.isIntersecting)play(cur);
-      else{++run;clearTimers();}
+      visible=en.isIntersecting;
+      if(visible){if(!paused)play(cur);}
+      else{++run;running=false;clearTimers();tabs.forEach(t=>t.classList.remove('playing'));}
     }),{threshold:.35});
     ioDemo.observe(shell);
-    if(matchMedia('(hover:hover)').matches){
-      shell.addEventListener('pointerenter',()=>{paused=true;});
-      shell.addEventListener('pointerleave',()=>{paused=false;});
-    }
   }
 })();
 
