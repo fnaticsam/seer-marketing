@@ -26,8 +26,15 @@ Open the Supabase dashboard for `seer-marketing` and view the `waitlist` table, 
 
 ## Run locally
 ```
-npx serve public -l 4173
+python3 -m http.server 4173 --directory public
 ```
+Open `http://localhost:4173`. The Python standard-library server needs no package installation.
+
+The local server does not support Vercel's extensionless URLs: the design previews' navigation tabs (`/designsystem-*`) return 404 locally. Open the `.html` URLs directly instead:
+
+- Final: `http://localhost:4173/designsystem-final.html`
+- Alternatives: `http://localhost:4173/designsystem-a.html`, `http://localhost:4173/designsystem-b.html`, `http://localhost:4173/designsystem-c.html`, `http://localhost:4173/designsystem-d.html`, `http://localhost:4173/designsystem-e.html`, `http://localhost:4173/designsystem-f.html`, `http://localhost:4173/designsystem-g.html`
+
 Note: scroll-reveal `.rv` elements are invisible until in view — when taking full-page screenshots, add the `in` class first. The demo only autoplays once its shell is ≥35% visible.
 
 ## Deploy
