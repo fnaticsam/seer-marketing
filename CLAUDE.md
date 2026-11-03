@@ -29,6 +29,7 @@ Marketing/waitlist teaser for **SEER, the AI coach for gaming** (League of Legen
 ## Workflows
 
 - Run locally: `python3 -m http.server 4173 --directory public`, then open `http://localhost:4173`. This needs no downloaded preview package. Use localhost rather than opening the HTML as a file so browser APIs have a normal origin.
+- Local design previews: open `http://localhost:4173/designsystem-final.html` or the explicit alternative `.html` URLs listed in README.md. The Python server does not implement Vercel's extensionless URLs, so the previews' `/designsystem-*` navigation tabs return 404 locally; open each `.html` URL directly.
 - Verify visually: Playwright screenshots; scroll-reveal `.rv` elements are opacity:0 until in view — add the `in` class via JS before full-page screenshots.
 - Deploy: `vercel --prod` from repo root. Domain: seer.coach. No env vars.
 - Signups: view the `waitlist` table in the Supabase dashboard (the public site can't read rows).
