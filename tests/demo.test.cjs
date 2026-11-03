@@ -20,14 +20,20 @@ const select = section('  function selectPanel(i)', '  tabs.forEach((t,i)=>{\n  
 function fixture({ reduced = false } = {}) {
   let now = 0;
   const pending = [], events = [], selections = [], resets = [];
+  const listeners = {};
   const scenes = [
     { total: 10000, ev: [{ t: 100, fx: 'first' }, { t: 500, fx: 'second' }, { t: 900, fx: 'third' }] },
     { total: 10000, ev: [{ t: 100, fx: 'other' }] },
   ];
   const context = vm.createContext({
     run: 0, paused: false, pauseStarted: 0, pausedFor: 0, running: false,
+    userPaused: false, focusPaused: false, visible: false, cur: 0,
     REDUCED: reduced, performance: { now: () => now },
-    shell: { classList: { toggle() {} } }, playback: { textContent: 'Pause demo' },
+    shell: {
+      classList: { toggle() {} },
+      addEventListener: (name, handler) => { listeners[name] = handler; },
+      contains: target => target?.inside === true,
+    }, playback: { textContent: 'Pause demo' },
     sleep: ms => new Promise(resolve => pending.push({ at: now + ms, resolve })),
     SCRIPTS: scenes,
     tabs: scenes.map(() => ({ offsetWidth: 0, style: { setProperty() {} }, classList: { add() {} } })),
@@ -47,7 +53,7 @@ function fixture({ reduced = false } = {}) {
     }
     now = target; await flush();
   }
-  return { context, events, selections, resets, advance, flush };
+  return { context, events, selections, resets, advance, flush, listeners };
 }
 
 test('pause preserves remaining scene time instead of releasing overdue effects together', async () => {
@@ -131,4 +137,63 @@ test('reduced-motion tab selection uses the existing storyboard without starting
   assert.deepEqual(f.resets, []);
   assert.deepEqual(f.events, []);
   assert.equal(f.context.running, false);
+});
+
+
+test('focus inside the demo freezes the scene past its deadline and preserves remaining time', async () => {
+  const f = fixture();
+  f.context.play(0);
+  await f.advance(50);
+  f.listeners.focusin();
+  await f.advance(20050);
+  assert.deepEqual(f.events, []);
+  assert.deepEqual(f.selections, [0]);
+  assert.equal(f.context.paused, true);
+  // Moving from a panel to another demo control must keep the pause.
+  f.listeners.focusout({ relatedTarget: { inside: true } });
+  f.listeners.focusin();
+  await f.advance(21050);
+  assert.deepEqual(f.selections, [0]);
+  f.listeners.focusout({ relatedTarget: null });
+  await f.advance(21100);
+  assert.deepEqual(f.events, [{ name: 'first', at: 21100 }]);
+  await f.advance(30950);
+  assert.deepEqual(f.selections, [0]);
+  await f.advance(31000);
+  assert.deepEqual(f.selections, [0, 1]);
+});
+
+test('focus changes preserve explicit pause and resume cannot override focused content', async () => {
+  const f = fixture();
+  f.context.play(0);
+  await f.advance(50);
+  f.context.setPaused(true);
+  f.listeners.focusin();
+  f.listeners.focusout({ relatedTarget: { inside: false } });
+  assert.equal(f.context.paused, true);
+  assert.equal(f.context.playback.textContent, 'Resume demo');
+  f.listeners.focusin();
+  f.context.setPaused(false);
+  await f.advance(20050);
+  assert.deepEqual(f.events, []);
+  assert.deepEqual(f.selections, [0]);
+  f.context.selectPanel(1);
+  await f.advance(21050);
+  assert.deepEqual(f.events, []);
+  f.listeners.focusout({ relatedTarget: null });
+  await f.advance(21150);
+  assert.deepEqual(f.events, [{ name: 'other', at: 21150 }]);
+});
+
+
+test('leaving focus starts a visible demo that was waiting to autoplay', async () => {
+  const f = fixture();
+  f.context.visible = true;
+  f.listeners.focusin();
+  await f.advance(1000);
+  assert.deepEqual(f.selections, []);
+  f.listeners.focusout({ relatedTarget: null });
+  await f.advance(1100);
+  assert.deepEqual(f.selections, [0]);
+  assert.deepEqual(f.events, [{ name: 'first', at: 1100 }]);
 });

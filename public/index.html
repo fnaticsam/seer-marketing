@@ -981,18 +981,23 @@ else{
   const feeds=panels.map(p=>p.querySelector('.dc'));
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   let run=0,paused=false,cur=0,timers=[],visible=false,running=false;
-  let pauseStarted=0,pausedFor=0;
+  let pauseStarted=0,pausedFor=0,userPaused=false,focusPaused=false;
   const playback=document.getElementById('demoPlayback');
   // Scene deadlines use active time, so a long pause never skips ahead.
   function activeNow(){return (paused?pauseStarted:performance.now())-pausedFor;}
   function setPaused(next){
+    userPaused=next;
+    playback.textContent=userPaused?'Resume demo':'Pause demo';
+    updatePaused();
+  }
+  function updatePaused(){
+    const next=userPaused||focusPaused;
     if(next===paused)return;
     const now=performance.now();
     if(next)pauseStarted=now;
     else pausedFor+=now-pauseStarted;
     paused=next;
     shell.classList.toggle('paused',paused);
-    playback.textContent=paused?'Resume demo':'Pause demo';
   }
   async function waitUntil(deadline,me){
     while(me===run){
@@ -1166,6 +1171,13 @@ else{
     if(REDUCED)setTabs(i);
     else{setPaused(false);play(i);}
   }
+  // Keep focused content stable; leaving the demo resumes only automatic pauses.
+  shell.addEventListener('focusin',()=>{focusPaused=true;updatePaused();});
+  shell.addEventListener('focusout',e=>{
+    focusPaused=shell.contains(e.relatedTarget);
+    updatePaused();
+    if(!paused&&!running&&visible&&!REDUCED)play(cur);
+  });
   tabs.forEach((t,i)=>{
     t.addEventListener('click',()=>selectPanel(i));
     t.addEventListener('keydown',e=>{
@@ -1187,7 +1199,7 @@ else{
   }else{
     document.getElementById('demoControls').hidden=false;
     playback.addEventListener('click',()=>{
-      setPaused(!paused);
+      setPaused(!userPaused);
       if(!paused&&!running&&visible)play(cur);
     });
     const ioDemo=new IntersectionObserver(es=>es.forEach(en=>{
